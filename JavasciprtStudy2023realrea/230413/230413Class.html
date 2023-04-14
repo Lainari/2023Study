@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * { box-sizing : border-box}
+        #result { width: 180px; height: 50px; margin: 5px; text-align: right; }
+        #operator { width: 50px; height: 50px; margin: 5px; text-align: center; }
+        button { width: 50px; height: 50px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <input type="text" readonly id="operator">
+    <input type="number" id="result" readonly>
+
+    <div class="row">
+        <button id="num-7">7</button>
+        <button id="num-8">8</button>
+        <button id="num-9">9</button>
+        <button id="plus">+</button>
+    </div>
+
+    <div class="row">
+        <button id="num-4">4</button>
+        <button id="num-5">5</button>
+        <button id="num-6">6</button>
+        <button id="minus">-</button>
+    </div>
+
+    <div class="row">
+        <button id="num-1">1</button>
+        <button id="num-2">2</button>
+        <button id="num-3">3</button>
+        <button id="divide">/</button>
+    </div>
+
+    <div class="row">
+        <button id="clear">C</button>
+        <button id="num-0">0</button>
+        <button id="calculate">=</button>
+        <button id="multiply">*</button>
+    </div>
+
+    <script>
+        let numOne = '';
+        let operator = '';
+        let numTwo = '';
+        const $operator = document.querySelector('#operator');
+        const $result = document.querySelector('#result');
+
+        // const onClickNum = (numStr)=>(event)=>{
+        //     if(operator){
+        //         if(!numTwo){    // nest if (중첩 조건문)
+        //             $result.value = '';
+        //         }
+        //         numTwo += numStr;
+        //     }else{      // 최초에는 operator 가 '' : false 처리
+        //         numOne += numStr;
+        //     }
+        //     $result.value += numStr;
+        // };
+
+    // R1 적용
+        // const onClickNum = (numStr)=>(event)=>{
+        //     if(operator){
+        //         if(!numTwo){    // nest if (중첩 조건문)
+        //             $result.value = '';
+        //         }
+        //         numTwo += numStr;
+        //         $result.value += numStr;
+        //     }else{      // 최초에는 operator 가 '' : false 처리
+        //         numOne += numStr;
+        //         $result.value += numStr;
+        //     }
+        //     // $result.value += numStr; // 공통 절차
+        // };
+
+    // // R2 적용
+    // const onClickNum = (numStr)=>(event)=>{
+    //         if(!operator){   // 짧은 절차
+    //             numOne += numStr;
+    //             $result.value += numStr;
+    //         }else{
+    //             if(!numTwo){    // nest if (중첩 조건문)
+    //                 $result.value = '';
+    //             }
+    //             numTwo += numStr;
+    //             $result.value += numStr;
+    //         }
+    //         // $result.value += numStr; // 공통 절차
+    //     };
+
+
+        // R3, R4 적용
+        const onClickNum = (numStr)=>(event)=>{
+            if(!operator){   // 짧은 절차
+                numOne += numStr;
+                $result.value += numStr;
+                return; // 실행 종료
+            }
+            //  R4 적용
+            if(!numTwo){    // nest if (중첩 조건문)
+                $result.value = '';
+            }
+            numTwo += numStr;
+            $result.value += numStr;
+        };
+
+
+        
+        document.querySelector('#num-0').addEventListener(
+            'click',
+            onClickNum('0')
+        );
+        document.querySelector('#num-1').addEventListener(
+            'click',
+            onClickNum('1')
+        );
+        document.querySelector('#num-2').addEventListener(
+            'click',
+            onClickNum('2')
+        );
+        document.querySelector('#num-3').addEventListener(
+            'click',
+            onClickNum('3')
+        );
+        document.querySelector('#num-4').addEventListener(
+            'click',
+            onClickNum('4')
+        );
+        document.querySelector('#num-5').addEventListener(
+            'click',
+            onClickNum('5')
+        );
+        document.querySelector('#num-6').addEventListener(
+            'click',
+            onClickNum('6')
+        );
+        document.querySelector('#num-7').addEventListener(
+            'click',
+            onClickNum('7')
+        );
+        document.querySelector('#num-8').addEventListener(
+            'click',
+            onClickNum('8')
+        );
+        document.querySelector('#num-9').addEventListener(
+            'click',
+            onClickNum('9')
+        );
+
+        const onClickOperator = (op) => () =>{
+            if(numOne){
+                operator = op;
+                $operator.value = op;
+            }else{
+                alert('숫자를 먼저 입력하세요!');
+            }
+        };
+
+        // const onClickOperator = (event) =>{
+        //     if(numOne){
+        //         operator = event.target.textContent;
+        //         $operator.value = operator;
+        //     }else{
+        //         alert('숫자를 먼저 입력하세요');
+        //     }
+        // };
+
+        document.querySelector('#plus').addEventListener(
+            'click',
+            // onClickOperator('+')
+            // 고차함수 없는 버전 작성해보기!!
+            () => {
+                if(numOne){
+                    operator = '+';
+                    $operator.value = '+';
+                }else{
+                    alert('숫자를 먼저 입력하세요!');
+                }
+            }
+        );
+        document.querySelector('#minus').addEventListener(
+            'click',
+            onClickOperator('-')
+        );
+        document.querySelector('#divide').addEventListener(
+            'click',
+            onClickOperator('/')
+        );
+        document.querySelector('#multiply').addEventListener(
+            'click',
+            onClickOperator('*')
+        );
+        document.querySelector('#calculate').addEventListener(
+            'click',
+            (event)=>{
+                if(numTwo){
+                    switch(operator){
+                        case '+': // operator === '+'가 참인 경우
+                            $result.value = Number(numOne) + parseInt(numTwo);
+                            break;
+                        case '-': // operator === '-'가 참인 경우
+                            $result.value = numOne - numTwo;
+                            break;
+                        case '*': // operator === '*'가 참인 경우
+                            $result.value = numOne * numTwo;
+                            break;
+                        case '/': // operator === '/'가 참인 경우
+                            $result.value = numOne / numTwo;
+                            break;
+                        default: break;
+                    }
+                    $operator.value = '';
+                    numOne = $result.value;
+                    operator = '';
+                    numTwo = '';
+                }else{
+                    alert('숫자를 입력하시오');
+                }
+            }
+        );
+        document.querySelector('#clear').addEventListener(
+            'click',
+            (ev)=>{
+                numOne = numTwo = operator = '';       // 같은 연산자가 나왔을 경우, 연산자 우선순위를 생각
+                // = 는 우항 -> 좌항으로 가므로 '' 값이 operator 로, operator 값이 numTwo 로 ... 진행함을 생각하자
+                $operator.value = $result.value = '';
+            }
+        );
+    </script>
+</body>
+</html>

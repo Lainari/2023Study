@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Follow-up_Game</title>
+</head>
+<body>
+    <div><span id="order">1</span>번째 참가자</div>
+    <div>제시어 : <span id="word"></span></div>
+    <input type="text">
+    <button>입력</button>
+    <button class='hello'>버튼2</button>
+    <button class='hello'>버튼3</button>
+
+    <script>
+        // 자바스크립트 코드 작성
+        // const nOfPlayer = prompt('몇명이 참가할 건지요?');
+        // ---> 실행의 결과는 string type
+
+        // 입력값을 Number type으로 변경하기
+        // 1. parseInt(str)
+        //  - const nOfPlayer = parseInt(prompt('몇명이 참가할 건지요?'));
+        // 2. Number(str)
+        //  - const nOfPlayer = Number(prompt('몇명이 참가할 건지요?'));
+
+        // const nOfPlayer = Number(prompt('몇명이 참가할건지요?'));
+
+        /*console.log('typeof : ', typeof nOfPlayer);
+        alert('typeof : ' + (typeof nOfPlayer));
+        const test = confirm('진짜로 시작할꺼임? 일본어 외워야지!'); */
+
+        // const $input = document.querySelector('input');
+        // // $ : 변수를 의미, 안해도 상관 없다 <- 저자의 스타일
+
+        // // input 태그의 엘리먼트 객체
+        // // const $input = document.getElementsByTagName('input')[0];
+        // // HTMLCollection : [](배열) 과 유사
+        // console.log($input);
+
+        // const $$button = document.querySelectorAll('button');
+        // // NodeList : 배열과 유사
+        // console.log($$button[2]);
+
+        const $order = document.querySelector('#order'); // # 을 통해 id가 딸린 변수 호출 가능
+        // const $orderOld = document.getElementById('order'); // 위에거보다 구버전 Style
+        const $word = document.querySelector('#word');
+        console.log($order);
+        // console.log($orderOld)
+
+        const $buttons = document.querySelectorAll('.hello');
+        // document.querySelector('.hello'); : 여러개가 있으면 최초의 엘리먼트가 선택됨
+        // const $buttons = document.getElementsByClassName('hello');
+        // console.log($buttons[1]);
+        // #container
+
+        // #container > div:nth-child(1);
+
+        /*
+            img
+            input
+            or
+            <br <br /> <br></br>
+        */
+
+       const onClickBtn = (event) =>{
+            console.log('버튼누름');
+            return true;
+       };
+
+        const $button = document.querySelector('button');
+        // $button.addEventListener(
+        //     'click',     // 이벤트명
+        //     onClickBtn   // 이벤트리스너(함수) : 함수의 이름을 지정해야 함, 함수호출하면 안됨
+        //                  //                                               (반드시 반환 되기 때문에)
+        //     // 호출은 이벤트가 발생하면 JS 엔진이 실행시켜줌 = callback 콜백
+        // );
+
+        $button.addEventListener(
+            'click',
+            (event) => {
+                console.log('버튼 누름2');
+            }
+        );
+        // 위 방식으로 현재 버튼 이벤트를 사용하는 방식으로 주로 채택 됨
+
+        const $input = document.querySelector('input');
+        $input.addEventListener(
+            'input',
+            (event) => {
+                console.log('이벤트가 발생한 엘리먼트 : ', event.target);
+                console.log('입력한 글자 : ', event.target.value);
+            }
+        );
+        
+
+    </script>
+</body>
+</html>
