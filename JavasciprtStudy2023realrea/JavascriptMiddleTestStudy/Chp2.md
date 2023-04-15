@@ -25,18 +25,18 @@
  ## 2.2 자료형(Data Type)
  - 값의 종류를 의미하며, 값(value)은 프로그램이 조작할 수 있는 데이터를 의미함
 
- ### 기본 자료형(Primitive Type)
+ ### 2.2.1 기본 자료형(Primitive Type)
  - String
  - Number(int, float, long, short, double 등)
  - Boolean
  - Undefined
 
- ### 객체 자료형(Object Type) : 사용자 정의 자료형
+ ### 2.2.2 객체 자료형(Object Type) : 사용자 정의 자료형
  - 배열형
  - null
  - 사용자 정의 객체(Object)
 
- ### Symbol 형 (Symbol Type)
+ ### 2.2.3 Symbol 형 (Symbol Type)
 
  ### 문자열(String)
  - 하나의 글자를 문자라고 하며 문자들이 하나 이상 나열되어 있는 것이 ***문자열***이라고 한다
@@ -69,6 +69,21 @@
  - prompt()를 사용하여 직접 값을 입력할 수 있음
     `typeof parseInt(prompt());`
     - 여기서 prompt(출력문자열) 은 반환 값으로 String 값이 나오는 것을 알 수 있다
+
+ > 문자에 대한 값 : ascii value(unicode 값)
+  `문자열`.charCodeAt(); : 해당 문자의 ascii value 값을 return 해주는 메소드
+  ```Javascript:Example
+    'a'.charCodeAt();
+    'A'.charCodeAt();
+    'abc'.charCodeAt();
+    // 여러 문자가 있을 경우 첫 번째의 문자의 값만 반환
+
+    'abc'.charAt(2);
+    // charAt() 메소드를 이용하여 해당 index 번호의 문자를 반환한다
+
+    'abc'.charAt(2).charCodeAt();
+    // charAt() 메소드와 CharCodeAt() 메소드를 이용하여 해당 문자 값을 알아낼 수 있다
+  ```
 
  > NaN : Not a Number
  - 숫자가 아님을 나타내는 자바스크립트 리터럴(구체적인 값)
@@ -141,8 +156,110 @@
   > 같은 레벨의 연산자 : 왼쪽이 더 우선 순위가 높다고 판정
   > 예외 : 단항 연산자와 대입 연산자(=) 는 오른쪽에 있는 것이 더 우선순위가 높다고 판정
 
- > 5. 무한 값(Infinity)
+### 불 값
+> true / false 를 반환하는 값
+- 숫자로 취급하면 '1', '0'으로 반환되며 비교연산의 결과나 논리연산의 결과로서 사용된다
+
+> false로 처리되는 경우
+- 0, undefined, null, NaN(Not a Number), '' : 빈문자열
+
+> true로 처리되는 경우
+ - false로 처리되는 경우를 제외한 나머지들
+
+```Javascript:Example
+// 전부 false 반환
+if(0) {console.log('t');}else{console.log('f');};
+if(null) {console.log('t');}else{console.log('f');};
+if(NaN) {console.log('t');}else{console.log('f');};
+if('') {console.log('t');}else{console.log('f');};
+'abc' < 5; // 문자'열'은 숫자로 바꾸면 NaN, NaN과의 비교는 false
+
+// NaN 과 NaN 비교 : 이것만 False로 반환
+NaN == NaN
+NaN === NaN
+
+// -----------------------------------------------------
+
+// 전부 true 반환
+if(1) {console.log('t');}else{console.log('f');};
+if(12) {console.log('t');}else{console.log('f');};
+// 0이 아닌 다른 값이 들어가면 T 반환
+if(' ') {console.log('t');}else{console.log('f');};
+// 공백(blank)가 들어있어서 반환값은 T
+true > false
+'b' > 'a';
+'ad' > 'ab';
+'ab' > 'a';
+'3' < 5;  // 문자를 숫자형으로 변환
+
+// null 끼리 비교는 true
+null == null
+null === null
+
+// undefined 끼리 비교는 true
+undefined == undefined
+undefined === undefined
+
+```
+> == 와 ===
+- 공통점 : 값을 비교한다
+- 차이점
+    - ==  : '값' 만 비교한다
+    - === : '자료형'까지 비교한다
+
+```Javascript:Example
+    '1' == 1;
+    '1' === 1;
+    1 != '1';
+    1 !== '1';
+```
+- 자료형까지 비교해주는 === 연산자를 사용하는 것이 바람직하다!
+
+> 비교연산자
+- '>'   : 보다 크다
+- '<'   : 보다 작다
+- '>='  : 보다 크거나 같다
+- '<='  : 보다 작거나 같다
+- '=='  : 와 같다(값이)
+- '===' : 와 같다(자료형과 값이)
+- '!='  : 와 같지 않다(값이)
+- '!==' : 와 같지 않다(자료형과 값이)
+
+> 논리 연산자
+- '&&(AND)' : ~하고
+- '||(OR)'  : ~이거나
+- '!(NOT)'  : ~이지 않다 
+
+
+### 무한 값(Infinity)
  - 무한이라는 수를 표현하는 값이며, 숫자를 0으로 나눈 결과
  - 음수를 0으로 나눌 경우 -Infinity 값이 나온다
  - 사칙연산을 하더라도 결과 값이 Infinity가 나오는 특징을 가지고 있지만, 무한 값끼리 계산 시 NaN 결과가 나온다
- - 
+
+ ### 빈 값 사용하기
+
+ > Null
+ - 값이 없다
+ - 데이터 타입을 'Object' 를 지님
+ - falsy value 취급 (null == false; // 결과 : false, null == true; // 결과 : false)
+
+ > Undefined
+ - 값이 없다
+ - 데이터 타입을 'Undefined' 를 지님
+ - falsy value 취급 (undefined == false; // 결과 : false, undefined == true; // 결과 : false)
+
+ ```Javascript:Example
+    typeof null; // 결과 : object    <-- javascript 의 유명한 버그
+    typeof undefined; // 결과 : undefined <-- 따라서 undefined 를 사용하는 것이 바람직함
+
+    null == false; // 결과 : false
+    null == true; // 결과 : true
+
+    undefined == false; // 결과 : false
+    undefined == true; // 결과 : false
+ ```
+
+ > JS : undefined 를 기본값으로 취급, 빈값 표현은 undefined 로 권장됨
+
+
+ ## 2.3 변수(Variable)
