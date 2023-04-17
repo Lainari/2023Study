@@ -326,8 +326,8 @@ undefined === undefined
 
  ## 2.4 조건문
 
- ### 조건문이란?
- - 주어진 조건에 따라 코드를 실행하거나 실행하지 않는 문
+ ### 조건문 : if
+ - 조건문 : 주어진 조건에 따라 코드를 실행하거나 실행하지 않는 문
  - if 뒤에 나오는 소괄호 안에 조건(식)을 넣고, 다음 줄에 실행문을 넣으면 된다
  - 조건식이 참인 값이면 내부의 실행문이 실행되고 거짓인 값이면 실행문이 실행되지 않는다
  - 실행 문장이 하나인 경우에는 중괄호는 생략 가능하지만, 권장하지 않는다
@@ -343,7 +343,7 @@ undefined === undefined
  ```
  - 또한 이러한 조건문으로 변수의 값을 바꿀 수 있다
  ```Javascript:예시
- let value = '사과';
+ let value = '사과'; 
  let condition = true;
  if(condition){
    value = '바나나';
@@ -351,3 +351,203 @@ undefined === undefined
  console.log(value);
  // 결과 : 바나나
  ```
+
+ - else를 사용하거나 else if 를 사용하여 여러 방향으로 분기할 수 있다
+ ```Javascript:else & else if
+ // else 이용
+ if(조건식){
+   // 조건식이 참인 값일 때 실행
+   실행문;
+ }else{
+   // 조건식이 거짓일 때 실행
+   실행문;
+ }
+
+ // else if 문 이용
+ if(조건식){
+   실행문;
+ }else if(조건식2){
+   실행문;
+ }else if(조건식3){
+   실행문;
+ } else if ... // else if를 여러 개 사용할 수 있다
+ else{
+   실행문;
+ }
+ ```
+
+ - 중첩 조건문(Nested Condition Statement)
+   - 조건문 내부에 조건문이 존재하는 경우
+   - 상당히 복잡해지므로 최소화된 if 문을 사용하도록!!
+
+### 조건문 : switch 문
+- 조건이 충족되면 실행된다는 if문과 같은 성질을 갖고 있음
+```Javascript:Switch 문
+switch(조건식){ // 이 조건식의 값이 case의 비교 조건 식 값과 일치(==)하면 해당 실행문이 실행 됨
+// 보통 조건식에 변수를 넣고
+   case 비교 조건식: // 비교 조건식에는 변수와 비교할 값을 넣음
+      실행문;
+}
+
+// 예시
+let Value = 'A';
+switch(value){
+   case 'A':
+      console.log('A');
+}
+// 결과 : A
+```
+- case를 여러 번 사용하여 else if 문처럼 여러 방향으로 분기할 수 있으나, 이 경우 특수한 상황이 발생한다
+> switch 문은 일치하는 case를 발견하면 일치 여부와 상관없이 그 아래 case 들의 실행문을 모두 실행함!
+   - 이러한 현상을 막기 위해 각각의 case에 break 문을 사용하여 case에서 빠져 나오도록 한다
+```Javascript:예시
+let value = 'B';
+switch(value){
+   case 'A':
+      console.log('A');
+      break;
+   case 'B':
+      console.log('B');
+      break;
+   case 'C':
+      console.log('C');
+      break;
+   // 결과 B
+}
+```
+- 어떠한 case도 일치하지 않을 때 실행하는 case 도 만들 수 있다(else 역할)
+   - ***default***라는 특수 예약어 사용
+   - else 의 역할을 하지만 else와 다른 점은 ***default는 어디에나 위치할 수 있음***
+```Javascript:switch-default
+let value = 'F';
+switch(value){
+   case 'A':
+      console.log('A');
+      break;
+   case 'B':
+      console.log('B');
+      break;
+   case 'C':
+      console.log('C');
+      break;
+   default:
+      console.log('아무것도 일치하지 않음')
+   // 결과 '아무것도 일치하지 않음'
+}
+```
+```Javascript:switch & if문 비교
+let fruit = '사과';
+
+// if문
+if(fruit === '사과'){
+   console.log('사과입니다!');
+}else if(fruit === '배'){
+   console.log('배입니다!');
+}else if(fruit === '포도'){
+   console.log('포도입니다!');
+}else{
+   console.log('뭔지 모르겠습니다!');
+}
+
+// switch 문
+switch(fruit){
+   default:
+      console.log('뭔지 모르겠습니다!');
+      break;
+   case '사과':
+      console.log('사과입니다!');
+      break;
+   case '배':
+      console.log('배입니다!');
+      break;
+   case '포도':
+      console.log('포도입니다!');
+      break;
+}
+```
+> 위의 예문 같은 결과 값이 나오므로 우리는 if 문과 switch 문을 바꿔가며 사용할 수 있어야 한다
+
+
+### 조건문 : 조건부 연산자 사용하기
+- if 문과 switch 문 외에도 분기 처리에 사용하는 식 (삼항 연산자라고도 부름)
+`조건식 ? '참일 때 실행되는 식' : '거짓일 때 실행되는 식'`
+> 조건부 연산자는 문이 아니라 식이므로 결과값이 나온다! : boolean
+- 해당 조건부 연산자를 if 문과 비교하여 사용해보는 연습을 합시다!
+```Javascript:3항 연산자
+// 3항 연산자의 경우
+let condition = true;
+let value = condition ? '참' : '거짓'; // return 참
+console.log(value); // 참
+
+// if문의 경우
+if(condition){
+   value = '참';
+}else{
+   value = '거짓';
+}
+console.log(value);
+
+// 중첩 조건문의 경우
+let condition1 = true;
+let condition2 = false;
+
+// 3항 연산자의 경우
+let value = condition1 ? condition2 ? '둘 다 참' : 'condition1만 참' : 'condition1이 거짓';
+console.log(value);
+
+// if문의 경우
+if(condition1){
+   if(condition2){
+      value = '둘 다 참'
+   }else{
+      value = 'condition1만 참';
+   }
+}else{
+   value = 'condition1이 거짓';
+}
+
+// 또 다른 예시
+let condition1 = false;
+let condition2 = true;
+let value = condition1 ? 'condition1이 참' : condition2 ? 'condition2가 참' : '둘 다 거짓';
+console.log(value);
+
+if(condition1){
+   value = 'condition1이 참';
+}else if(condition2){
+      value = 'condition2가 참';
+   }else{
+      value = '둘 다 거짓';
+   }
+```
+> 위와 같은 예제를 통해 if문을 switch문, 조건부 연산자로 바꿀 수 있는 능력을 키울 수 있다
+- 다음의 퀴즈를 한번 풀어볼까요
+```Javascript:퀴즈퀴즈
+let condition = true;
+let value = '';
+if(condition){
+   value = '참';
+}else{
+   value = '거짓';
+}
+```
+> switch 문의 경우는 아래와 같습니다
+```Javascript:switch 문
+let condition = true;
+let value = '';
+switch(condition){
+   case true:
+      value = '참';
+      break;
+   case false:
+      value = '거짓';
+      break;
+}
+```
+> 조건부 연산자의 경우는 아래와 같습니다
+```Javascript:조건부 연산자
+let condition = true;
+let value = condition ? : '참' : '거짓';
+```
+
+## 2.5 반복문
