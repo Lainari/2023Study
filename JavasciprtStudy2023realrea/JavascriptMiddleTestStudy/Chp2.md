@@ -380,302 +380,302 @@ undefined === undefined
    - 조건문 내부에 조건문이 존재하는 경우
    - 상당히 복잡해지므로 최소화된 if 문을 사용하도록!!
 
-### 조건문 : switch 문
-- 조건이 충족되면 실행된다는 if문과 같은 성질을 갖고 있음
-```Javascript:Switch 문
-switch(조건식){ // 이 조건식의 값이 case의 비교 조건 식 값과 일치(==)하면 해당 실행문이 실행 됨
-// 보통 조건식에 변수를 넣고
-   case 비교 조건식: // 비교 조건식에는 변수와 비교할 값을 넣음
-      실행문;
-}
+ ### 조건문 : switch 문
+ - 조건이 충족되면 실행된다는 if문과 같은 성질을 갖고 있음
+ ```Javascript:Switch 문
+ switch(조건식){ // 이 조건식의 값이 case의 비교 조건 식 값과 일치(==)하면 해당 실행문이 실행 됨
+ // 보통 조건식에 변수를 넣고
+    case 비교 조건식: // 비교 조건식에는 변수와 비교할 값을 넣음
+       실행문;
+ }
 
-// 예시
-let Value = 'A';
-switch(value){
-   case 'A':
-      console.log('A');
-}
-// 결과 : A
-```
-- case를 여러 번 사용하여 else if 문처럼 여러 방향으로 분기할 수 있으나, 이 경우 특수한 상황이 발생한다
-> switch 문은 일치하는 case를 발견하면 일치 여부와 상관없이 그 아래 case 들의 실행문을 모두 실행함!
-   - 이러한 현상을 막기 위해 각각의 case에 break 문을 사용하여 case에서 빠져 나오도록 한다
-```Javascript:예시
-let value = 'B';
-switch(value){
-   case 'A':
-      console.log('A');
-      break;
-   case 'B':
-      console.log('B');
-      break;
-   case 'C':
-      console.log('C');
-      break;
-   // 결과 B
-}
-```
-- 어떠한 case도 일치하지 않을 때 실행하는 case 도 만들 수 있다(else 역할)
-   - ***default***라는 특수 예약어 사용
-   - else 의 역할을 하지만 else와 다른 점은 ***default는 어디에나 위치할 수 있음***
-```Javascript:switch-default
-let value = 'F';
-switch(value){
-   case 'A':
-      console.log('A');
-      break;
-   case 'B':
-      console.log('B');
-      break;
-   case 'C':
-      console.log('C');
-      break;
-   default:
-      console.log('아무것도 일치하지 않음')
-   // 결과 '아무것도 일치하지 않음'
-}
-```
-```Javascript:switch & if문 비교
-let fruit = '사과';
+ // 예시
+ let Value = 'A';
+ switch(value){
+    case 'A':
+       console.log('A');
+ }
+ // 결과 : A
+ ```
+ - case를 여러 번 사용하여 else if 문처럼 여러 방향으로 분기할 수 있으나, 이 경우 특수한 상황이 발생한다
+ > switch 문은 일치하는 case를 발견하면 일치 여부와 상관없이 그 아래 case 들의 실행문을 모두 실행함!
+    - 이러한 현상을 막기 위해 각각의 case에 break 문을 사용하여 case에서 빠져 나오도록 한다
+ ```Javascript:예시
+ let value = 'B';
+ switch(value){
+    case 'A':
+       console.log('A');
+       break;
+    case 'B':
+       console.log('B');
+       break;
+    case 'C':
+       console.log('C');
+       break;
+    // 결과 B
+ }
+ ```
+ - 어떠한 case도 일치하지 않을 때 실행하는 case 도 만들 수 있다(else 역할)
+    - ***default***라는 특수 예약어 사용
+    - else 의 역할을 하지만 else와 다른 점은 ***default는 어디에나 위치할 수 있음***
+ ```Javascript:switch-default
+ let value = 'F';
+ switch(value){
+    case 'A':
+       console.log('A');
+       break;
+    case 'B':
+       console.log('B');
+       break;
+    case 'C':
+       console.log('C');
+       break;
+    default:
+       console.log('아무것도 일치하지 않음')
+    // 결과 '아무것도 일치하지 않음'
+ }
+ ```
+ ```Javascript:switch & if문 비교
+ let fruit = '사과';
 
-// if문
-if(fruit === '사과'){
-   console.log('사과입니다!');
-}else if(fruit === '배'){
-   console.log('배입니다!');
-}else if(fruit === '포도'){
-   console.log('포도입니다!');
-}else{
-   console.log('뭔지 모르겠습니다!');
-}
+ // if문
+ if(fruit === '사과'){
+     console.log('사과입니다!');
+ }else if(fruit === '배'){
+     console.log('배입니다!');
+ }else if(fruit === '포도'){
+    console.log('포도입니다!');
+ }else{
+    console.log('뭔지 모르겠습니다!');
+ }
 
-// switch 문
-switch(fruit){
-   default:
-      console.log('뭔지 모르겠습니다!');
-      break;
-   case '사과':
-      console.log('사과입니다!');
-      break;
-   case '배':
-      console.log('배입니다!');
-      break;
-   case '포도':
-      console.log('포도입니다!');
-      break;
-}
-```
-> 위의 예문 같은 결과 값이 나오므로 우리는 if 문과 switch 문을 바꿔가며 사용할 수 있어야 한다
+ // switch 문
+ switch(fruit){
+    default:
+       console.log('뭔지 모르겠습니다!');
+       break;
+    case '사과':
+       console.log('사과입니다!');
+       break;
+    case '배':
+       console.log('배입니다!');
+       break;
+    case '포도':
+       console.log('포도입니다!');
+       break;
+ }
+ ```
+ > 위의 예문 같은 결과 값이 나오므로 우리는 if 문과 switch 문을 바꿔가며 사용할 수 있어야 한다 
 
 
-### 조건문 : 조건부 연산자 사용하기
-- if 문과 switch 문 외에도 분기 처리에 사용하는 식 (삼항 연산자라고도 부름)
-`조건식 ? '참일 때 실행되는 식' : '거짓일 때 실행되는 식'`
-> 조건부 연산자는 문이 아니라 식이므로 결과값이 나온다! : boolean
-- 해당 조건부 연산자를 if 문과 비교하여 사용해보는 연습을 합시다!
-```Javascript:3항 연산자
-// 3항 연산자의 경우
-let condition = true;
-let value = condition ? '참' : '거짓'; // return 참
-console.log(value); // 참
+ ### 조건문 : 조건부 연산자 사용하기
+ - if 문과 switch 문 외에도 분기 처리에 사용하는 식 (삼항 연산자라고도 부름)
+ `조건식 ? '참일 때 실행되는 식' : '거짓일 때 실행되는 식'`
+ > 조건부 연산자는 문이 아니라 식이므로 결과값이 나온다! : boolean
+ - 해당 조건부 연산자를 if 문과 비교하여 사용해보는 연습을 합시다!
+ ```Javascript:3항 연산자
+ // 3항 연산자의 경우
+ let condition = true;
+ let value = condition ? '참' : '거짓'; // return 참
+ console.log(value); // 참 
 
-// if문의 경우
-if(condition){
-   value = '참';
-}else{
-   value = '거짓';
-}
-console.log(value);
+ // if문의 경우
+ if(condition){
+    value = '참';
+ }else{
+    value = '거짓';
+ }
+ console.log(value); 
+ 
+ // 중첩 조건문의 경우
+ let condition1 = true;
+ let condition2 = false;  
+ 
+ // 3항 연산자의 경우
+ let value = condition1 ? condition2 ? '둘 다 참' : 'condition1만 참' : 'condition1이 거짓';
+ console.log(value); 
+ 
+ // if문의 경우
+ if(condition1){
+    if(condition2){
+       value = '둘 다 참'
+    }else{
+       value = 'condition1만 참';
+    }
+ }else{
+    value = 'condition1이 거짓';
+ }
 
-// 중첩 조건문의 경우
-let condition1 = true;
-let condition2 = false;
+ // 또 다른 예시
+ let condition1 = false;
+ let condition2 = true;
+ let value = condition1 ? 'condition1이 참' : condition2 ? 'condition2가 참' : '둘 다 거짓';
+ console.log(value);
 
-// 3항 연산자의 경우
-let value = condition1 ? condition2 ? '둘 다 참' : 'condition1만 참' : 'condition1이 거짓';
-console.log(value);
+ if(condition1){
+    value = 'condition1이 참';
+ }else if(condition2){
+       value = 'condition2가 참';
+    }else{
+       value = '둘 다 거짓';
+    }
+ ```
+ > 위와 같은 예제를 통해 if문을 switch문, 조건부 연산자로 바꿀 수 있는 능력을 키울 수 있다
+ - 다음의 퀴즈를 한번 풀어볼까요
+ ```Javascript:퀴즈퀴즈
+ let condition = true;
+ let value = '';
+ if(condition){
+    value = '참';
+ }else{
+    value = '거짓';
+ }
+ ```
+ > switch 문의 경우는 아래와 같습니다
+ ```Javascript:switch 문
+ let condition = true;
+ let value = '';
+ switch(condition){
+    case true:
+       value = '참';
+       break;
+    case false:
+       value = '거짓';
+       break;
+ }
+ ```
+ > 조건부 연산자의 경우는 아래와 같습니다
+ ```Javascript:조건부 연산자
+ let condition = true;
+ let value = condition ? : '참' : '거짓';
+ ``` 
 
-// if문의 경우
-if(condition1){
-   if(condition2){
-      value = '둘 다 참'
-   }else{
-      value = 'condition1만 참';
-   }
-}else{
-   value = 'condition1이 거짓';
-}
+ ## 2.5 반복문
 
-// 또 다른 예시
-let condition1 = false;
-let condition2 = true;
-let value = condition1 ? 'condition1이 참' : condition2 ? 'condition2가 참' : '둘 다 거짓';
-console.log(value);
+ ### 반복문 : while 문
+ ```Javascript:while문
+ while(조건식){
+    실행문1;
+    [실행문2;
+    ...]
+ }
+ ```
+ - while 문은 조건식이 참인 동안 반복해서 실행문을 실행합니다
+ - 조건식이 참인 동안 계속 반복하게 되므로 무한 반복되는 상황을 방지해야한다
+    - 따라서 조건식을 false로 만들게 유도한다
+ ```Javascript:while문 무한반복 방지
+ // 무한반복 상황
+ while(true){
+    console.log('Hello, World!');
+    // 결과 : (...) Hello, World! -> 웹 비정상동작 : 웹 프로그램 종료해야함
+ } 
+ 
+ // 무한반복 방지
+ let i = 1;
+ while(i<=100){
+    console.log('Hello, World!');
+    i++;
+ } // 결과 : (100) Hello, World!
+ ```
+ - 위처럼 무한 반복을 멈추기 위해 실행문의 범위를 지정하여 false를 유도하게 만든다
+ - 이때 변수에 값을 넣어 범위를 지저앟ㄹ 때 1보다는 0을 많이 넣는다
+    - 그 이유는 프로그래밍에서는 숫자를 0부터 세기 때문이다(index원리)
 
-if(condition1){
-   value = 'condition1이 참';
-}else if(condition2){
-      value = 'condition2가 참';
-   }else{
-      value = '둘 다 거짓';
-   }
-```
-> 위와 같은 예제를 통해 if문을 switch문, 조건부 연산자로 바꿀 수 있는 능력을 키울 수 있다
-- 다음의 퀴즈를 한번 풀어볼까요
-```Javascript:퀴즈퀴즈
-let condition = true;
-let value = '';
-if(condition){
-   value = '참';
-}else{
-   value = '거짓';
-}
-```
-> switch 문의 경우는 아래와 같습니다
-```Javascript:switch 문
-let condition = true;
-let value = '';
-switch(condition){
-   case true:
-      value = '참';
-      break;
-   case false:
-      value = '거짓';
-      break;
-}
-```
-> 조건부 연산자의 경우는 아래와 같습니다
-```Javascript:조건부 연산자
-let condition = true;
-let value = condition ? : '참' : '거짓';
-```
+ ### 반복문 : do while문
+ - while 문과 비슷하나 조건에 상관없이 ***일단 한번은 실행***하고 추후 반복은 조건을 판단하고 실행
+ ```Javascript:do-while
+ do{
+    실행문;
+    ...
+    맨마지막 -> 조건식의 값 변화에 영향을 끼치는 문장;
+ }while(조건식);
+ ``` 
 
-## 2.5 반복문
+ ### 반복문 : for문
+ ```Javascript:for문
+ for(시작; 조건식; 종료식){
+    실행문;
+    ...;
+ }
+ ```
+ > for 문의 소괄호에는 세 가지 요소가 들어감
+ 1. 시작(식과 변수 선언)
+ 2. 조건식 : while 의 조건식과 동일
+ 3. 종료식 : 조건식의 값 변화에 영향을 끼치는 문장
+ - 이러한 구조를 통해 for 문이 반복되는 순서를 알 수 있다. while문과 순서를 비교해보자
+ ```Javascript:for & while
+ for(let i = 0; i < 100; i++){
+    console.log('Hello, for!');
+ } // i 를 선언하고, 조건식을 비교한다. 이때 조건식이 참일 경우 실행문이 동작되고 종료식을 실행하고
+ // 이 과정을 조건문이 거짓이 될 때까지 반복한다
 
-### 반복문 : while 문
-```Javascript:while문
-while(조건식){
-   실행문1;
-   [실행문2;
-   ...]
-}
-```
-- while 문은 조건식이 참인 동안 반복해서 실행문을 실행합니다
-- 조건식이 참인 동안 계속 반복하게 되므로 무한 반복되는 상황을 방지해야한다
-   - 따라서 조건식을 false로 만들게 유도한다
-```Javascript:while문 무한반복 방지
-// 무한반복 상황
-while(true){
-   console.log('Hello, World!');
-   // 결과 : (...) Hello, World! -> 웹 비정상동작 : 웹 프로그램 종료해야함
-}
+ let i = 0;
+ while(i < 100){
+    console.log('Hello, while!');
+    i++;
+ }
+ // i 를 먼저 따로 선언한다. while 문안의 조건식을 비교하고 참일 경우 아래의 실행문을 실행하는 과정을 반복
+ // 이후 조건식이 거짓일 경우 while 문이 종료된다
+ ```
 
-// 무한반복 방지
-let i = 1;
-while(i<=100){
-   console.log('Hello, World!');
-   i++;
-} // 결과 : (100) Hello, World!
-```
-- 위처럼 무한 반복을 멈추기 위해 실행문의 범위를 지정하여 false를 유도하게 만든다
-- 이때 변수에 값을 넣어 범위를 지저앟ㄹ 때 1보다는 0을 많이 넣는다
-   - 그 이유는 프로그래밍에서는 숫자를 0부터 세기 때문이다(index원리)
+ > while 문과 for 문의 차이점을 알았으니 퀴즈를 풀어봅시다!
+ ```Javascript:1부터 100까지 출력하기 - for & while
+ //while
+ let i = 0;
+ while(i < 100){
+    console.log(i + 1);
+    i++;
+ } 
 
-### 반복문 : do while문
-- while 문과 비슷하나 조건에 상관없이 ***일단 한번은 실행***하고 추후 반복은 조건을 판단하고 실행
-```Javascript:do-while
-do{
-   실행문;
-   ...
-   맨마지막 -> 조건식의 값 변화에 영향을 끼치는 문장;
-}while(조건식);
-```
+ // for
+ for(let i = 0; i < 100; i++){
+    console.log(i + 1);
+  }
+  ```
 
-### 반복문 : for문
-```Javascript:for문
-for(시작; 조건식; 종료식){
-   실행문;
-   ...;
-}
-```
-> for 문의 소괄호에는 세 가지 요소가 들어감
-1. 시작(식과 변수 선언)
-2. 조건식 : while 의 조건식과 동일
-3. 종료식 : 조건식의 값 변화에 영향을 끼치는 문장
-- 이러한 구조를 통해 for 문이 반복되는 순서를 알 수 있다. while문과 순서를 비교해보자
-```Javascript:for & while
-for(let i = 0; i < 100; i++){
-   console.log('Hello, for!');
-} // i 를 선언하고, 조건식을 비교한다. 이때 조건식이 참일 경우 실행문이 동작되고 종료식을 실행하고
-// 이 과정을 조건문이 거짓이 될 때까지 반복한다
-
-let i = 0;
-while(i < 100){
-   console.log('Hello, while!');
-   i++;
-}
-// i 를 먼저 따로 선언한다. while 문안의 조건식을 비교하고 참일 경우 아래의 실행문을 실행하는 과정을 반복
-// 이후 조건식이 거짓일 경우 while 문이 종료된다
-```
-
-> while 문과 for 문의 차이점을 알았으니 퀴즈를 풀어봅시다!
-```Javascript:1부터 100까지 출력하기 - for & while
-//while
-let i = 0;
-while(i < 100){
-   console.log(i + 1);
-   i++;
-}
-
-// for
-for(let i = 0; i < 100; i++){
-   console.log(i + 1);
-}
-```
-
-### break문 과 continue문
-앞에서 switch 에서 사용한 break 문과 continue 문을 알아봅시다
-- break 문
+ ### break문 과 continue문
+ 앞에서 switch 에서 사용한 break 문과 continue 문을 알아봅시다
+ - break 문
    - break의 의미는 중단한다는 의미로, 실행 block 을 중단하는 문장이라는 뜻을 가진다
       - 실행의 범위 : break 문이 속해있는 block 하나만 중단
       `for()for(){break}`
       - 내부의 for문은 break 문으로 실행이 중단되지만 외부의 for문으로 다시 반복된다
       - break 문은 조건문 뿐만 아니라 반복문에서도 사용된다
-- continue 문
+ - continue 문
    - break문과 마찬가지로 중단의 의미를 갖는다
    - 하지만 break문과 다르게 continue문은 실행되면 조건문 검사를 실행하게 된다
       - continue 문 아래의 문장들은 무시되고 바로 조건문 검사를 진행하게 됨
 
-### 중첩 반복문 사용하기
-- 반복문 안에 반복문이 들어있는 경우를 말함
-- 반복문이 두 번 이상 중첩될 수도 있고, 중첩 횟수가 증가할 수록 코드도 점점 어려워진다
-   - 보통 구구단 예제로서 많이 사용된다
-```Javascript:중첩 반복문으로 구구단을 출력해봅시다
-// 구구단을 출력하되, 결과에 짝수가 하나도 나오지 않게 해봅시다! : continue 사용
-for(let multiply1 = 1; multiply1 < 10; multiply1++){
-   if(multiply1 % 2 == 0){
-      continue;
-   }
-   for(let multiply2 = 1; multiply2 < 10; multiply2++){
-      console.log(multiply1 + ' * ' + multiply2 + ' = ' + (multiply1 * multiply2));
-   }
-}
-```
+ ### 중첩 반복문 사용하기
+ - 반복문 안에 반복문이 들어있는 경우를 말함
+ - 반복문이 두 번 이상 중첩될 수도 있고, 중첩 횟수가 증가할 수록 코드도 점점 어려워진다
+    - 보통 구구단 예제로서 많이 사용된다
+ ```Javascript:중첩 반복문으로 구구단을 출력해봅시다
+ // 구구단을 출력하되, 결과에 짝수가 하나도 나오지 않게 해봅시다! : continue 사용
+ for(let multiply1 = 1; multiply1 < 10; multiply1++){
+    if(multiply1 % 2 == 0){
+       continue;
+    }
+    for(let multiply2 = 1; multiply2 < 10; multiply2++){
+       console.log(multiply1 + ' * ' + multiply2 + ' = ' + (multiply1 * multiply2));
+    }
+ }
+ ```
 
 
-## 2.6 객체
-- **객체(object)** 는 자료형의 일종으로 다양한 값을 모아 둔 또 다른 값을 칭한다
-   - 종류 : **배열(array)**, **함수(function)**, 배열이나 함수가 아닌 객체
+ ## 2.6 객체
+ - **객체(object)** 는 자료형의 일종으로 다양한 값을 모아 둔 또 다른 값을 칭한다
+    - 종류 : **배열(array)**, **함수(function)**, 배열이나 함수가 아닌 객체
 
-### 배열(Array)
-- 다양한 값을 나열할 수 있는 데이터를 집합적으로 관리할 수 있는 데이터 타입을 칭한다
-- 나열 가능한 데이터는 다음과 같습니다
-   - 배열, 객체, 프리미티브 타입, Null, Undefined, Infinity, NaN
-- 배열은 데이터의 중복이 가능하며, 순서에 구애받지 않습니다
-- 또한 배열은 요소와 인덱스로 구성되어 있습니다
-   - 요소(Element) : 배열에 저장되는 하나의 데이터
-   - 인덱스(Index) : 특정한 요소의 저장 위치
-- 배열을 이용하는 순서는 선언과 정의로부터 시작됩니다
+ ### 배열(Array)
+ - 다양한 값을 나열할 수 있는 데이터를 집합적으로 관리할 수 있는 데이터 타입을 칭한다
+ - 나열 가능한 데이터는 다음과 같습니다
+    - 배열, 객체, 프리미티브 타입, Null, Undefined, Infinity, NaN
+ - 배열은 데이터의 중복이 가능하며, 순서에 구애받지 않습니다
+ - 또한 배열은 요소와 인덱스로 구성되어 있습니다
+    - 요소(Element) : 배열에 저장되는 하나의 데이터
+    - 인덱스(Index) : 특정한 요소의 저장 위치
+ - 배열을 이용하는 순서는 선언과 정의로부터 시작됩니다
    1. 선언/정의
    - 대괄호 사용 `배열명 = [요소1, 요소2, ... ]`
    - `Array()` 사용 : Array 객체의 생성자
@@ -697,8 +697,8 @@ for(let multiply1 = 1; multiply1 < 10; multiply1++){
    ```
    - 배열 내에 배열 요소가 저장되도록 할 수 있는데 이를 이중 배열(이차원 배열)이라고 합니다
    - 배열 안에 배열 요소가 더 들어갈수록 한층의 차원이 증가되어 다중 배열(다차원 배열)이 됩니다
-
-   > 배열의 요소 개수 구하기
+   2. 사용
+   > 배열의 요소 개수(배열의 크기) 구하기
    - 앞에서 만든 배열의 요소 개수를 구하는 방법으로, 배열 이름 뒤에 `.length`를 붙이면 됩니다
    ```Javascript
    const everything = ['사과', 1, undefined, true, '배열', null];
@@ -711,3 +711,113 @@ for(let multiply1 = 1; multiply1 < 10; multiply1++){
 
    // 결과 : 5
    ```
+   > 배열의 맨마지막 요소의 인덱스
+   - 배열의 크기는 항상 `배열명.length`크기를 가지고 있으므로 마지막 요소의 인덱스는 `배열명.length-1`가 된다
+   ```Javascript:배열의 요소 찾기
+   const arr = [1, 2, 3, 4, 5];
+   // 해당 배열의 마지막에서 세 번째 요소를 찾으시오
+   console.log(arr.length-3);
+   // 결과 : 3
+   ```
+
+   > 배열 요소 : 읽기, 쓰기, 수정, 삭제
+   - 배열 요소 읽기
+      `배열명[인덱스]`
+   - 배열 요소 쓰기
+      `배열명[인덱스] = 쓸 값`
+   - 배열 요소 수정
+      `배열명[인덱스] = 쓸 값`
+   - 배열 요소 삭제
+      `delete 배열명[인덱스]`
+      - 해당 요소를 empty 화 -> 배열의 길이가 줄지 않는 특징을 가짐
+   
+   > 배열의 추가 : 배열의 길이가 변경됨
+   - 맨 마지막에 추가
+      `배열명[배열명.length] = 추가값`
+      `배열명.push(추가값)`
+   - 맨 앞에 추가
+      `배열명.unshift(추가값)`
+   - 예시
+   ```Javascript:Array Example
+   const target = ['a','b','c','d','e'];
+   target.push('f'); // target[target.length] = 'f';
+   target.unshift('aa');
+   console.log(target);
+
+   // 결과 : target=['aa','a','b','c','d','e','f']
+   ```
+   > const 인데 수정 가능한 이유가 뭘까?
+   - 앞에서 **상수 만들기**에서 const가 엄밀히 상수가 아니라고 했는데, 이는 바로 여기서 확인했듯이
+     const에 객체(배열, 함수, 객체 리터럴)가 대입되면 객체 내부의 속성이나 배열의 요소는 수정할 수 있기 때문이다
+
+   > 배열의 삭제 : 배열의 길이가 변경됨
+   - 맨 마지막 삭제
+      `배열명.pop()`
+   - 맨 앞에 삭제
+      `배열명.shift()`
+   
+   > 배열의 삽입과 삭제를 동시에 하는 .splice()
+   `배열명.splice(시작 index[, 삭제 요소 갯수[, 추가할 요소들]])`
+   - 해당 splice 의 요소를 하나씩 구현해보면 다음과 같은 의미를 갖는다
+      `배열명.splice(시작 index)` : 시작 index 에서 배열 끝까지 삭제
+      `배열명.splice(시작 index, 삭제 요소 갯수)` : 시작 index에서 지정한 갯수만큼 삭제
+      `배열명.splice(시작 index, 삭제 요소 갯수, 추가할 요소들)` : 시작 index에서 지정한 갯수만큼 삭제하고, 추가요소 삽입
+   
+   > 배열의 검색 .includes(), indexOf(), lastIndexOf()
+   `배열명.includes(검색할 요소)` : 반환값으로 boolean을 갖는다
+      - 해당 요소가 있는지에 대해 참, 거짓의 결과를 반환
+   `배열명.indexOf(검색할 요소)` : 반환값으로 index 값을 갖는다
+      - 맨 처음부터 검색하여 검색에 성공한 최초의 인덱스를 반환
+      - 찾지 못했다면 -1 값을 반환한다
+   `배열명.lastIndexOf(검색할 요소)` : 반환값으로 index 값을 갖는다
+      - 맨 마지막부터 검색하여 검색에 성공한 최초의 인덱스를 반환한다
+      - 찾지 못했다면 -1 값을 반환한다
+   
+   > 배열의 반복
+   - for 문 사용
+   ```Javascript:Array Repeat
+   const fruits = ['apple','banana','pineapple','watermelon'];
+   for(let i = 0; i < fruits.length; i++){
+      console.log(fruits[i]);
+   }
+   ```
+   - for ~ in 문 사용
+   ```Javascript:Array Repeat
+   const fruits = ['apple','banana','pineapple','watermelon'];
+   for(let i in fruits){ // fruits 배열에 있는 원소를 i 에 대입하여 해당 반복문을 구동
+      console.log(fruits[i]);
+   }
+   ```
+   - 이러한 반복 기능은 다른 기능을 추가하여 반복문을 활용할 수 있다
+   ```Javascript:퀴즈퀴즈
+   const arr = ['가','라','다','라','마','라'];
+   // 위의 배열의 '라'를 모두 제거하세요. indexOf 와 splice를 사용해봅시다!
+   let findWordIndex = arr.indexOf('라'); // indexOf로 찾을 원소의 index 번호를 확인한다
+   while(findWordIndex > -1){ // 해당 원소가 없다면 -1 를 반환하니 그 값 보다 이상인 경우는 삭제를 진행한다
+      arr.splice(findWordIndex, 1); // 하나의 원소를 지우는 splice()
+      findWordIndex = arr.indexOf('라'); // 제거한 다음 다음 원소의 index 번호를 확인한다
+      // 없다면 -1 반환으로 반복문이 제거된다
+   }
+   console.log(arr); // 결과 확인
+   ```
+
+ ### 함수(Function)
+ - 특정한 작업을 수행하는 코드들의 집합(자판기)
+ - 함수의 구성
+   1. 정의/선언
+      - **함수 선언문**
+      ```Javascript
+      function 함수명(파라미터 리스트){ // 함수의 시그니처, 함수의 헤더
+         // 중괄호 부분 ; 함수의 바디
+      }
+      ```
+      - **함수 표현식(function expression)**
+      `const 상수명 = function(파라미터 리스트) {};`
+         - 이름없는 선언문이라고 하며, 호출할 때는 `상수명(아듀면트리스트)` 로 실행한다
+      - ***화살표 함수(arrow function)***
+      `const 상수명 = (파라미터리스트) => {};`
+      총 3가지 방식으로 함수를 만드는 행위를 함수를 **선언한다(declare)**라고 한다
+
+   2. 호출 : 호출 시 반드시 결과를 반환하는 특징을 가짐
+      - `함수명(아규먼트리스트)`
+      - `상수명(아규먼트리스트)`
