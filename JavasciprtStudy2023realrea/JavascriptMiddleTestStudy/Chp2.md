@@ -551,3 +551,163 @@ let value = condition ? : '참' : '거짓';
 ```
 
 ## 2.5 반복문
+
+### 반복문 : while 문
+```Javascript:while문
+while(조건식){
+   실행문1;
+   [실행문2;
+   ...]
+}
+```
+- while 문은 조건식이 참인 동안 반복해서 실행문을 실행합니다
+- 조건식이 참인 동안 계속 반복하게 되므로 무한 반복되는 상황을 방지해야한다
+   - 따라서 조건식을 false로 만들게 유도한다
+```Javascript:while문 무한반복 방지
+// 무한반복 상황
+while(true){
+   console.log('Hello, World!');
+   // 결과 : (...) Hello, World! -> 웹 비정상동작 : 웹 프로그램 종료해야함
+}
+
+// 무한반복 방지
+let i = 1;
+while(i<=100){
+   console.log('Hello, World!');
+   i++;
+} // 결과 : (100) Hello, World!
+```
+- 위처럼 무한 반복을 멈추기 위해 실행문의 범위를 지정하여 false를 유도하게 만든다
+- 이때 변수에 값을 넣어 범위를 지저앟ㄹ 때 1보다는 0을 많이 넣는다
+   - 그 이유는 프로그래밍에서는 숫자를 0부터 세기 때문이다(index원리)
+
+### 반복문 : do while문
+- while 문과 비슷하나 조건에 상관없이 ***일단 한번은 실행***하고 추후 반복은 조건을 판단하고 실행
+```Javascript:do-while
+do{
+   실행문;
+   ...
+   맨마지막 -> 조건식의 값 변화에 영향을 끼치는 문장;
+}while(조건식);
+```
+
+### 반복문 : for문
+```Javascript:for문
+for(시작; 조건식; 종료식){
+   실행문;
+   ...;
+}
+```
+> for 문의 소괄호에는 세 가지 요소가 들어감
+1. 시작(식과 변수 선언)
+2. 조건식 : while 의 조건식과 동일
+3. 종료식 : 조건식의 값 변화에 영향을 끼치는 문장
+- 이러한 구조를 통해 for 문이 반복되는 순서를 알 수 있다. while문과 순서를 비교해보자
+```Javascript:for & while
+for(let i = 0; i < 100; i++){
+   console.log('Hello, for!');
+} // i 를 선언하고, 조건식을 비교한다. 이때 조건식이 참일 경우 실행문이 동작되고 종료식을 실행하고
+// 이 과정을 조건문이 거짓이 될 때까지 반복한다
+
+let i = 0;
+while(i < 100){
+   console.log('Hello, while!');
+   i++;
+}
+// i 를 먼저 따로 선언한다. while 문안의 조건식을 비교하고 참일 경우 아래의 실행문을 실행하는 과정을 반복
+// 이후 조건식이 거짓일 경우 while 문이 종료된다
+```
+
+> while 문과 for 문의 차이점을 알았으니 퀴즈를 풀어봅시다!
+```Javascript:1부터 100까지 출력하기 - for & while
+//while
+let i = 0;
+while(i < 100){
+   console.log(i + 1);
+   i++;
+}
+
+// for
+for(let i = 0; i < 100; i++){
+   console.log(i + 1);
+}
+```
+
+### break문 과 continue문
+앞에서 switch 에서 사용한 break 문과 continue 문을 알아봅시다
+- break 문
+   - break의 의미는 중단한다는 의미로, 실행 block 을 중단하는 문장이라는 뜻을 가진다
+      - 실행의 범위 : break 문이 속해있는 block 하나만 중단
+      `for()for(){break}`
+      - 내부의 for문은 break 문으로 실행이 중단되지만 외부의 for문으로 다시 반복된다
+      - break 문은 조건문 뿐만 아니라 반복문에서도 사용된다
+- continue 문
+   - break문과 마찬가지로 중단의 의미를 갖는다
+   - 하지만 break문과 다르게 continue문은 실행되면 조건문 검사를 실행하게 된다
+      - continue 문 아래의 문장들은 무시되고 바로 조건문 검사를 진행하게 됨
+
+### 중첩 반복문 사용하기
+- 반복문 안에 반복문이 들어있는 경우를 말함
+- 반복문이 두 번 이상 중첩될 수도 있고, 중첩 횟수가 증가할 수록 코드도 점점 어려워진다
+   - 보통 구구단 예제로서 많이 사용된다
+```Javascript:중첩 반복문으로 구구단을 출력해봅시다
+// 구구단을 출력하되, 결과에 짝수가 하나도 나오지 않게 해봅시다! : continue 사용
+for(let multiply1 = 1; multiply1 < 10; multiply1++){
+   if(multiply1 % 2 == 0){
+      continue;
+   }
+   for(let multiply2 = 1; multiply2 < 10; multiply2++){
+      console.log(multiply1 + ' * ' + multiply2 + ' = ' + (multiply1 * multiply2));
+   }
+}
+```
+
+
+## 2.6 객체
+- **객체(object)** 는 자료형의 일종으로 다양한 값을 모아 둔 또 다른 값을 칭한다
+   - 종류 : **배열(array)**, **함수(function)**, 배열이나 함수가 아닌 객체
+
+### 배열(Array)
+- 다양한 값을 나열할 수 있는 데이터를 집합적으로 관리할 수 있는 데이터 타입을 칭한다
+- 나열 가능한 데이터는 다음과 같습니다
+   - 배열, 객체, 프리미티브 타입, Null, Undefined, Infinity, NaN
+- 배열은 데이터의 중복이 가능하며, 순서에 구애받지 않습니다
+- 또한 배열은 요소와 인덱스로 구성되어 있습니다
+   - 요소(Element) : 배열에 저장되는 하나의 데이터
+   - 인덱스(Index) : 특정한 요소의 저장 위치
+- 배열을 이용하는 순서는 선언과 정의로부터 시작됩니다
+   1. 선언/정의
+   - 대괄호 사용 `배열명 = [요소1, 요소2, ... ]`
+   - `Array()` 사용 : Array 객체의 생성자
+   - `new Array(숫자)` : 빈 배열을 숫자만큼 생성
+   - `new Array(요소1, 요소2, ...)` : 요소를 바로 빈배열에 넣어 생성하는 방법
+   - 예제를 통해 한번 생성해봅시다
+   ```Javascript:Array Example
+   var Num = 10;
+   Array(num); // 빈 배열을 Num 만큼 생성
+
+   const fruits = [`🍇`,`🍈`,`🍉`,`🍊`,`🍋`,`🍌`];
+   // 결과 (6) ['🍇', '🍈', '🍉', '🍊', '🍋', '🍌']
+
+   const fruits1 = new Array(6);
+   // 결과 (6) [empty × 6]
+
+   const fruits2 = new Array(`🍇`,`🍈`,`🍉`,`🍊`,`🍋`,`🍌`);
+   // (6) ['🍇', '🍈', '🍉', '🍊', '🍋', '🍌']
+   ```
+   - 배열 내에 배열 요소가 저장되도록 할 수 있는데 이를 이중 배열(이차원 배열)이라고 합니다
+   - 배열 안에 배열 요소가 더 들어갈수록 한층의 차원이 증가되어 다중 배열(다차원 배열)이 됩니다
+
+   > 배열의 요소 개수 구하기
+   - 앞에서 만든 배열의 요소 개수를 구하는 방법으로, 배열 이름 뒤에 `.length`를 붙이면 됩니다
+   ```Javascript
+   const everything = ['사과', 1, undefined, true, '배열', null];
+   console.log(everything.length);
+   // 결과 : 6
+
+   // 빈 값도 유효한 값이기 때문에 요소 개수를 셀 때 포함됩니다
+   const emptyValue = [null, undefined, false, '', NaN];
+   console.log(emptyValue.length);
+
+   // 결과 : 5
+   ```
