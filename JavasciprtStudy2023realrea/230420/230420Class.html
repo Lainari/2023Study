@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form action="" id="form">
+    <input type="text" id="input">
+    <button>확인</button>
+  </form>
+  <div id="logs">
+
+  </div>
+  <script>
+    const $input = document.querySelector('#input');
+    const $form = document.querySelector('#form');
+    const $logs = document.querySelector('#logs');
+/*    const numbers = [];
+     for(let n = 1; n<=9; n+=1){
+      numbers.push(n);
+    } */
+
+    const getRNum = (n,m)=> Math.floor(
+                           Math.random() *
+                           (m-n+1)
+                         )+n;
+
+    const numbers = Array(9).fill().map((v,i)=>i+1);
+    const answer = [];
+
+    //console.log(numbers);
+
+    for(let n=0;n<4;n+=1){
+      //const index = getRNum(0,8);  // undefined 생성가능
+      const index = getRNum(0,numbers.length-1);
+      answer.push(numbers[index]);
+      numbers.splice(index,1); // 배열에서 index위치에 1개를 삭제
+      //console.log(numbers);
+      //console.log(answer);
+    }
+
+    const sidoArr = []; // 시도한 입력값 저장
+    const checkInput = (input)=>{ // 문자열을 input으로 받는다
+        if(input.length !== 4){ // 길이 4개의 숫자를 문자열로 입력 안한 경우
+            return alert("잘못 입력하셨습니다. 4자리 숫자로 입력하세요!");
+        }
+        if ((new Set(input)).size !== 4){ // 4개의 숫자 중에 중복된 숫자가 있는 경우
+            return alert("중복된 값이 들어왔습니다!");
+        }
+        if(sidoArr.includes(input)){ // 이미 시도한 입력 체크
+            return alert("이미 시도한 경우입니다");
+        }
+        return true;
+    };
+
+    $form.addEventListener(
+        'submit', // enter키 눌러 요청 처리 가능
+        (event)=>{
+            event.preventDefault(); // 디폴트 처리를 중지
+            // submit의 디폴트 처리: 화면 새로고침 : 화면 초기화
+            const value = $input.value;
+            $input.value = '';
+            const valid = checkInput(value);
+            // console.log(valid);
+            if(!valid) return;
+            console.log(answer);
+            if(answer.join('') === value){
+                $logs.textContent = '홈런입니다!';
+                return;
+            }
+            if(sidoArr.length>10){
+                const msg = document.createTextNode(`패배! 정답 : ${answer.join('')}`);
+                $logs.appendChild(msg);
+                // $logs.textContent = `패배! 정답 : ${answer.join('')}`; 
+                return;
+                
+            }
+
+            sidoArr.push(value);
+        }
+    );
+
+
+
+  </script>
+  
+</body>
+</html>
+

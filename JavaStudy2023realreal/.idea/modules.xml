@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Java230303_homework/Java230303_homework.iml" filepath="$PROJECT_DIR$/Java230303_homework/Java230303_homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230303_memberVariable/Java230303_memberVariable.iml" filepath="$PROJECT_DIR$/Java230303_memberVariable/Java230303_memberVariable.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230303_television/Java230303_television.iml" filepath="$PROJECT_DIR$/Java230303_television/Java230303_television.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230309_ClassTime/Java230309_ClassTime.iml" filepath="$PROJECT_DIR$/Java230309_ClassTime/Java230309_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230309_homework/Java230309_homework.iml" filepath="$PROJECT_DIR$/Java230309_homework/Java230309_homework.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230313_ClassTime/Java230313_ClassTime.iml" filepath="$PROJECT_DIR$/Java230313_ClassTime/Java230313_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230315_ClassTime/Java230315_ClassTime.iml" filepath="$PROJECT_DIR$/Java230315_ClassTime/Java230315_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230316_ClassTime/Java230316_ClassTime.iml" filepath="$PROJECT_DIR$/Java230316_ClassTime/Java230316_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230317_ClassTime/Java230317_ClassTime.iml" filepath="$PROJECT_DIR$/Java230317_ClassTime/Java230317_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230322_ClassTime/Java230322_ClassTime.iml" filepath="$PROJECT_DIR$/Java230322_ClassTime/Java230322_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230323_ClassTime/Java230323_ClassTime.iml" filepath="$PROJECT_DIR$/Java230323_ClassTime/Java230323_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230330_ClassTime/Java230330_ClassTime.iml" filepath="$PROJECT_DIR$/Java230330_ClassTime/Java230330_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230331_ClassTime/Java230331_ClassTime.iml" filepath="$PROJECT_DIR$/Java230331_ClassTime/Java230331_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230406_ClassTime/Java230406_ClassTime.iml" filepath="$PROJECT_DIR$/Java230406_ClassTime/Java230406_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230407_ClassTime/Java230407_ClassTime.iml" filepath="$PROJECT_DIR$/Java230407_ClassTime/Java230407_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230413_ClassTime/Java230413_ClassTime.iml" filepath="$PROJECT_DIR$/Java230413_ClassTime/Java230413_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230414_ClassTime/Java230414_ClassTime.iml" filepath="$PROJECT_DIR$/Java230414_ClassTime/Java230414_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Java230420_ClassTime/Java230420_ClassTime.iml" filepath="$PROJECT_DIR$/Java230420_ClassTime/Java230420_ClassTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/JavaMiddleTestStudy/JavaMiddleTestStudy.iml" filepath="$PROJECT_DIR$/JavaMiddleTestStudy/JavaMiddleTestStudy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/JavaStudy2023realreal.iml" filepath="$PROJECT_DIR$/.idea/JavaStudy2023realreal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Test230302_1/Test230302_1.iml" filepath="$PROJECT_DIR$/Test230302_1/Test230302_1.iml" />
+    </modules>
+  </component>
+</project>
