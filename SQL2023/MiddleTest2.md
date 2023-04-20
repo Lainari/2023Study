@@ -189,6 +189,7 @@ WHERE 원하는 조건; <- 조건식
  
 ## 2) SQL 연산자
  - SQL 연산자는 비교 연산자보다 조금 더 확장된 연산자로 자주 쓰이는 연산자다
+
  ### BETWEEN 연산자
  `SELECT [열 이름] FROM [테이블 명] WHERE [열이름] BETWEEN [값1] AND [값2];`
  - 두 값의 범위에 해당하는 행을 출력할 때 사용
@@ -262,4 +263,53 @@ WHERE 원하는 조건; <- 조건식
  IS NULL 연산자 예제:
  1. employees 테이블에서 manager_id가 NULL인 사원들을 출력하는 SQL 작성
  2. orders 테이블에서 delivery_date가 아직 지정되지 않은 주문들을 출력하는 SQL 작성
+ ```
+
+## 3) 논리 연산자
+ - 여러 조건을 논리적으로 연결할 때 사용하는 연산자
+ - SQL 문의 조건을 계속 추가해야할 때 사용하는 필수 연산자
+
+ ### AND 연산자 : 교집합
+ `SELECT [열 이름] FROM [테이블 명] WHERE [조건1] AND [조건2];`
+  - 앞의 조건과 뒤 조건이 동시에 참이여야 참
+  - 즉, 앞 뒤 조건을 동시에 만족해야하는 값을 구한다
+ > employees 테이블에서 급여가 4000을 초과하면서 job_id가 IT_PROG인 직원을 조회해보자
+ ```SQL
+ [          ]
+ FROM employees
+ [             ]
+ ```
+
+ ### OR 연산자 : 합집합
+ `SELECT [열 이름] FROM [테이블 명] WHERE [조건1] OR [조건2];`
+  - 두 조건 중에 한 쪽 조건을 만족한다면 참의 결과가 나온다
+ > employees 테이블에서 salary가 4000을 초과하면서 job_id가 IT_PROG거나 FI_ACCOUNT인 경우를 조회하세요
+  ```SQL
+   [          ]
+   FROM employees
+   [             ]
+  ```
+
+ ### NOT 연산자
+ `SELECT [열 이름] FROM [테이블 명] WHERE NOT 연산자 [조건]`
+  - 뒤의 조건에 대한 반대 결과를 반환한다
+ > employees 테이블에서 employee_id 가 105가 아닌(2가지 표현) 직원을 조회해보세요
+ ```SQL
+ [          ]
+ FROM employees
+ [             ]
+ ```
+  > 시간이 된다면 아래의 문제도 풀어보시길!
+ ```SQL
+ AND 연산자 예제:
+ 1. employees 테이블에서 department_id가 20인 레코드 중 salary가 5000 이상인 레코드를 검색하세요.
+ 2. orders 테이블에서 customer_id가 'C001'이면서 order_total_amount가 1000 이상인 레코드를 검색하세요.
+
+ OR 연산자 예제
+ 1. employees 테이블에서 job_id가 'SA_REP'이거나 'SA_MAN'인 레코드를 검색하세요.
+ 2. orders 테이블에서 order_date가 '2022-01-01' 이거나 delivery_date가 '2022-01-01'인 레코드를 검색하세요.
+
+ NOT 연산자 예제:
+ 1. employees 테이블에서 department_id가 20이 아닌 레코드를 검색하세요.
+ 2. orders 테이블에서 customer_id가 'C001'이 아닌 레코드 중 delivery_date가 NULL인 레코드를 검색하세요.
  ```
