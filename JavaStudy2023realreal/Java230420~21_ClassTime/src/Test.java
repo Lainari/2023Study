@@ -2,6 +2,8 @@ public class Test {
     public static void main(String[] args) {
         Car myCar = new Car("현대","아반테",10,1000);
         Car yourCar = new Car("기아","모닝",5,500);
+        Car someoneCar = new Car();
+        System.out.println(someoneCar);
         findLarger(myCar, yourCar);
     }
 

@@ -1,3 +1,3 @@
 public interface Comparable {
-    int compareTo(interfacetest.Comparable obj);
+    int compareTo(Comparable obj);
 }
