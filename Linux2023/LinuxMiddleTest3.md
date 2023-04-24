@@ -194,9 +194,10 @@
 ```
 
 # ⚠ 그룹, 사용자 관리(추가, 수정, 삭제)
-> 많은 사용자를 만들 때는 **그룹을 먼저 만들고,** 사용자를 이후에 추가해준다!
 
 ## 그룹 관리
+> 많은 사용자를 만들 때는 **그룹을 먼저 만들고,** 사용자를 이후에 추가해준다!
+
 `groupadd [option] groupname`
 - groupname 인 그룹을 추가한다
 - `-g gid` 옵션을 통해 해당 그룹에게 그룹 아이디(숫자)를 지정해준다.
@@ -219,8 +220,281 @@
 - `-d username` 옵션으로 username인 사용자를 그룹에서 삭제한다
 
 ```bash:그룹 관리
-1. 
+1. 많은 사용자를 만들 때는 사용자를 먼저 만들고 그룹을 만드는 것이 바람직하다(O, X)
+2. Student 그룹을 생성하고, 이 그룹의 그룹 아이디를 1020번으로 지정하는 명령어를 작성하라
+3. Student 그룹의 이름을 korStudent로 변경하고 이 그룹의 그룹아이디를 1001 번으로 변경하라
+4. korStudent 그룹에 studentA 만 포함 되어있는 상황에서 studentA를 jpStudent 그룹에 추가하고 korStudent 그룹을 삭제하라
+5. jpStudent 그룹의 비밀번호를 삭제하라
 
 # 정답
-# 1. 
+# 1. X(그룹을 먼저 만들고 유저를 추가해주는게 바람직함!)
+# 2. groupadd -g 1020 Student
+# 3. groupmod -n korStudent -g 1001 Student
+# 4. gpasswd -a studentA jpStudent (추가 후) groupdel korStudent
+# 5. gpasswd -r jpStudent
+
+```
+
+## 사용자 추가
+`useradd [option] username`
+`-d home`      옵션으로 홈 디렉토리를 home으로 지정한다
+  - 최상위 폴더에는 만들 수 없으며 생략할 경우 /home/username 으로 생성
+`-g groupname` 옵션으로 주 그룹이 지정된다. 생략할 경우는 아래를 따른다
+  - /etc/login.defs의 USERGROUPS_ENAB=yes 인 경우, username과 같은 이름을 생성하여 사용
+  - 위 옵션이 허용되지 않을 경우 아니면 /etc/default/useradd 의 GROUP 사용
+`-G groupname` 옵션으로 부 그룹이 지정된다
+  - , 로 구분하여 여러 그룹을 지정한다(예 : -G A, B, C)
+`-s shell`     옵션으로 기본 쉘을 지정한다
+  - 생략할 경우 시스템 /etc/default/useradd 의 SHELL 을 사용한다
+`-u uid`       옵션으로 사용자 번호를 지정한다
+  - /etc/login.defs의 UID_MIN 보다 크고 UID_MAX 보다 작은 유일한 값이야만 함
+`-c content`   옵션으로 full name 자리에 들어갈 내용을 지정한다
+
+
+- 각 옵션을 생략할 경우 /etc/default/useradd 에 정의된 값을 사용함
+> /etc/default/useradd
+  1. GROUP : 그룹 생성이 허용되지 않는데 그룹이 미지정된 경우의 기본 그룹
+  2. HOME  : 홈 디렉토리 지정. 이 디렉토리 하위에 username으로 생성된다
+  3. INACTIVE : 비밀번호 만료 후 로그인을 막는 기간
+    - -1:미설정, 0:없음
+  4. EXPIRE : 계정 유효기간(YYYY-MM-DD)
+  5. SHELL : 기본 쉘
+  6. SKEL : 사용자 추가할 때 홈 디렉토리에 추가되는 기본파일들
+  7. CREATE_MAIL_SPOOL : 사용자 추가할 때 메일 파일을 생성 여부
+
+```bash:사용자 추가
+1. studentA 사용자를 추가하되, 해당 유저의 홈 디렉토리를 /home/example로 설정하라
+2. studentB 사용자를 추가하되, 해당 유저의 주 그룹을 B, 부 그룹을 A로 설정하라
+3. studentC 사용자를 추가하되, 해당 유저의 사용자 번호를 1000 으로 설정하라
+4. studentD 사용자를 추가하되, 해당 유저의 사용 쉘을 bash, full name을 Cstudent로 지정하라
+5. 만일 사용자를 추가할 때 옵션을 생략할 경우, (   ) 에 정의된 값을 사용한다
+
+# 정답
+# 1. useradd -d /home/example studentA
+# 2. useradd -g B -G A studentB
+# 3. useradd -u 1000 studentC
+# 4. useradd -s bash -c Cstudent
+# 5. /etc/default/useradd
+
+```
+
+## 사용자 수정
+> 변경 시 꼭 주의해야할 것!!
+`usermod [option] username`
+`-l newname` 옵션으로 newname 으로 아이디를 변경한다
+  - 단, 아이디만 변경될 뿐 홈 디렉토리가 바뀌지 않는 것을 주의한다!
+`-d home`    옵션으로 home 으로 홈 디렉토리를 변경한다
+  - 단, /etc/passwd 파일만 수정하므로 없는 폴더를 만들지 않는다!
+`-m`         옵션으로 홈 디렉토리 변경 시 폴더를 만들고 기존 파일 및 디렉토리 내용을 이동한다
+  - -d 옵션이 있을 때만 사용가능하므로 주의할 것
+`-g groupname` 옵션으로 사용자를 groupname 인 그룹으로 변경한다
+`-G groupname+` 옵션으로 사용자에게 grouname인 2차 그룹을 지정한다
+`-a groupname+` 옵션으로 사용자에게 grouname인 2차 그룹을 추가한다
+`-s shell`      옵션으로 사용자의 기본 쉘을 지정한다
+`-u uid`        옵션으로 사용자 번호를 uid로 지정한다
+  - /etc/login.defs의 UID_MIN 보다 크고 UID_MAX 보다 작은 유일한 값임
+`-c content`    옵션으로 full name 자리에 들어갈 내용을 지정한다
+
+- 각 옵션을 생략할 경우 /etc/default/useradd 에 정의된 값을 사용함
+
+```bash:사용자 수정
+1. student 유저의 아이디를 studentA로 변경하라 
+2. studentA 유저의 홈 디렉토리를 /home/studentA로 폴더를 만들면서 변경하라
+3. studentA 유저의 주 그룹을 A, 부 그룹을 B로 변경하라
+4. studentA 유저의 부 그룹에 C를 추가하라
+5. studentA 유저의 사용자 번호를 1000 으로 설정하라
+6. studentA 유저의 사용 쉘을 bash, full name을 Astudent로 변경하라
+7. 만일 사용자를 수정할 때 옵션을 생략할 경우, (   ) 에 정의된 값을 사용한다
+
+# 정답
+# 1. usermod -l studentA student
+# 2. usermod -d /home/studentA -m studentA
+# 3. usermod -g A -G B studentA
+# 4. usermod -a C studentA
+# 5. usermod -u 1000
+# 6. usermod -s bash -c Astudent
+# 7. /etc/default/useradd
+
+```
+
+## 사용자의 소속 그룹 확인
+`id [username]`
+- 사용자의 uid, gid, 그룹 리스트를 확인하고 username 생략시 현재 사용자 정보 확인
+`groups [username]`
+- 사용자의 그룹 리스트를 확인하고 username 생략시 현재 사용자의 그룹 리스트 확인
+```bash:사용자의 소속 그룹 확인
+1. studentA의 uid, gid, 그룹 리스트를 확인하는 명령어를 작성하시오
+2. 현재 로그인된 사용자의 그룹 리스트를 확인하는 명령어를 작성하시오
+
+# 정답
+# 1. id studentA
+# 2. groups
+
+```
+
+## 사용자 삭제
+`userdel [option] username`
+- username 인 사용자를 삭제하는 명령어로, 계정만 삭제하므로 주의한다
+`-r` 옵션으로 계정 및 홈 디렉토리, 메일 파일까지 삭제한다
+  - /etc/login.defs 설정에 따라 사용자의 홈 디렉토리 및 메일 스플릿을 찾는다
+`-f` 옵션으로 사용자가 로그인 상태라도 강제 삭제한다
+
+```bash:사용자 삭제
+1. studentA 가 로그인 된 상태라도 해당 유저 계정을 삭제하되 홈 디렉토리, 메일 파일까지 삭제하는 명령어를 작성하시오
+
+# 정답
+# 1. userdel -rf studentA
+
+```
+
+## 세션의 그룹 바꾸기
+`newgrp groupname`
+- 자신이 속한 보조 그룹으로 시스템에 접근하는 명령어
+  - 일반적으로 사용자가 로그인을 하면 주그룹(/etc/passwd 에 적힌 그룹)으로 처리되기 때문
+- 해당 그룹으로 세션을 만듬
+- 자신이 속하지 않은 그룹으로 변경하고, 그 그룹이 비밀번호가 설정된 경우?
+  - 비밀번호를 입력하여 해당 그룹으로 변경해야 한다
+
+```bash:세션의 그룹 바꾸기
+1. studentA 는 B 라는 보조그룹에 속해있지만 C 라는 보조그룹에는 속해있지 않다. 이때 studentA 계정에서 B 보조그룹으로 세션을 만드는 과정과 C 라는 다른 보조 그룹으로 이동할 때 다른점을 서술하시오
+
+# 정답
+# 1. B 보조그룹으로 세션을 만드는 과정에서는 newgrp B 로 바로 이동하면 되지만, C 라는 다른 보조 그룹으로 이동할 때는 해당 C 그룹이 비밀번호가 설정된 경우에는 C 그룹의 비밀번호를 입력해야지만 해당 그룹의 세션으로 넘어가게 됩니다.
+
+```
+
+## 사용자 관련 환경 설정 파일 요약
+
+### 정보 파일
+- /etc/passwd  : 전체 계정 정보
+- /etc/shadow  : 비밀 번호 및 정책
+- /etc/group   : 그룹 리스트
+- /etc/gshadow : 그룹 비밀번호
+
+### 설정 파일
+- /etc/default/useradd : 새 사용자를 만드는 기본 설정
+- /etc/login.defs      : 로그인 관련 기본 설정
+- /etc/skel            : 홈 디렉토리 생성에 사용할 기본 파일들
+
+```bash:사용자 관련 환경 설정 파일
+1. 다음 정보 파일 중 파일명과 설명이 일치하지 않는것은?
+  a. /etc/passwd : 현재 로그인 계정 정보
+  b. /etc/shadow : 비밀 번호 및 정책
+  c. /etc/group  : 그룹 리스트
+  d. /etc/gshadow : 그룹 비밀번호
+
+2. 다음 설정 파일 중 파일명과 설명이 일치하지 않는것은?
+  a. /etc/default/usermod : 새 사용자를 만드는 기본 설정
+  b. /etc/login.defs : 로그인 관련 기본 설정
+  c. /etc/skel : 홈 디렉토리 생성에 사용할 기본 파일들
+
+# 정답
+# 1. a(현재 뿐만 아닌 전체 계정 정보를 담고있음)
+# 2. a(/etc/default/useradd 파일임)
+
+```
+
+## 실습
+> student 라는 그룹을 만들고 해당 그룹에 학생 s12345를 추가해보자
+```bash:1번 예제
+
+# 정답
+# groupadd student
+# useradd -g student s12345
+```
+
+> 학생 s12345에게 비밀번호를 설정하여 로그인이 가능하게 만들자
+```bash:2번 예제
+
+# 정답
+# passwd s12345
+```
+
+> 그룹 firstGrade를 만들고 해당 그룹에 학생 s12345를 보조 그룹으로 추가해보자
+```bash:3번 예제
+
+# 정답
+# groupadd firstGrade
+# usermod -G firstGrade s12345
+```
+
+> 이름을 A, B, C로 하는 그룹 3개를 추가한다. gid는 자동으로 설정되도록 한다
+```bash:4번 예제
+
+# 정답
+# groupadd A
+# groupadd B
+# groupadd C
+```
+
+> C 그룹은 비밀번호를 추가한다
+```bash:5번 예제
+
+# 정답
+# gpasswd C
+```
+
+> 다음과 같이 사용자를 추가하라
+```bash:6번 예제
+username : test_a, group:A
+username : testB,  group:B, subgroup:C
+username : testC,  group:C
+
+# 정답
+# useradd -g A test_a
+# useradd -g B -G C testB
+# useradd -g C testC
+
+```
+
+> 새로 추가된 사용자들은 각각 username과 같은 비밀번호로 초기화 하라
+```bash:7번 예제
+
+# 정답
+# passwd test_a
+# passwd testB
+# passwd testC
+```
+
+> test_a 아이디를 testA로 변경하고, 홈폴더도 testA로 변경하라
+```bash:8번 예제
+
+# 정답
+# usermod -l testA test_a
+# usermod -m -d /home/testA testA
+```
+
+> testB로 사용자 변경 후 현재 그룹을 C로 변경하라
+```bash:9번 예제
+
+# 정답
+# su testB
+# newgrp C
+```
+
+> testA로 사용자 변경 후 현재 그룹을 C로 변경
+```bash:10번 예제
+
+# 정답
+# su testA
+# newgrp C
+# 비밀번호 입력
+```
+
+> testA, testB, testC 계정을 모두 삭제하라. 단, 각 계정의 홈 폴더까지 모두 삭제되어야 한다
+```bash:11번 예제
+
+# 정답
+# userdel -r testA
+# userdel -r testB
+# userdel -r testC
+```
+
+> 그룹 A, B, C 모두 삭제하라
+```bash:12번 예제
+
+# 정답
+# groupdel A
+# groupdel B
+# groupdel C
 ```
