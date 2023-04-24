@@ -34,7 +34,7 @@
 # 2. ls -a
 # 3. ls
 # 4. ls -l 
-# 5. ls -h
+# 5. ls -S
 # 6. ls -a
 ```
 
@@ -92,22 +92,21 @@
 ## 6) touch 명령어 : 단독으로 사용 불가능
 - touch 는 또한 소유권을 가진 파일이라면 해당 파일이 실행권한이 없어도 touch로 시간을 수정할 수 있다
 ```bash
-touch file.txt
-touch my_folder/file.txt
-touch -t 202201011200 file.txt
-touch -r file1.txt file2.txt
-touch -d "yesterday" file.txt
+1. touch file.txt
+2. touch -i my_folder/file.txt
+3. touch -t 202201011200 file.txt
+4. touch -a file1.txt
+5. touch -f file.txt
 #이 중, touch 명령어의 사용 방법과 결과를 묻는 문제이므로, 각 문제에서 touch 명령어를 사용한 결과물을 예측해보시면 됩니다.
 
 6. 현재 내가 작업하는 폴더를 모른다는 가정하에 나의 홈 디렉토리에 abc 라는 이름의 빈 파일을 만들자고 한다
 
 # 정답
 # 1. file.txt 명을 가진 빈 파일 생성
-# 2. 현재 디렉토리에 있는 my_folder 디렉토리 안에 file.txt 명을 가진 빈 파일 생성
+# 2. 현재 디렉토리에 있는 my_folder 디렉토리 안에 file.txt 명을 가진 파일을 삭제할 때 삭제 여부를 묻는다
 # 3. file.txt 파일의 수정 시간을 2022년 1월 1일 12시 00분 으로 설정
-# 4. file1.txt 파일의 타임스탬프를 기반으로 file2.txt 파일의 타임스탬프를 변경
-# 5. 파일의 타임스탬프를 지정한 문자열에 따라 변경할 수 있는 옵션으로
-# "yesterday"라는 문자열은 어제의 날짜를 내어서, file.txt 파일의 타임스탬프가 어제의 시간으로 변경
+# 4. 현재 시간을 기반으로 file1.txt 파일의 타임스탬프를 변경
+# 5. file.txt 를 강제삭제하며 메시지를 보여주지 않는다
 # 6. touch ~/abc
 ```
 
@@ -118,6 +117,7 @@ touch -d "yesterday" file.txt
 3. 디렉토리 my_folder를 /home/user/Documents/ 디렉토리에 복사
 4. 디렉토리 my_folder를 /home/user/Documents/ 디렉토리에 복사하되, my_folder 이름을 my_folder_new로 변경하여 복사
 5. 디렉토리 my_folder의 모든 내용을 /home/user/Documents/my_folder_new/ 디렉토리로 복사
+6. 파일 file1.txt을 file2.txt로 복사하되, 동일한 이름이 있을 경우 경고 메시지 표출
 
 
 # 정답
@@ -126,6 +126,7 @@ touch -d "yesterday" file.txt
 # 3. cp my_folder -r /home/user/Documents/my_folder
 # 4. cp my_folder -r /home/user/Documents/my_folder_new
 # 5. cp my_folder -r /home/user/Documents/my_folder_new/
+# 6. cp -i file1.txt file2.txt
 ```
 
 ## 8) mv 명령어
@@ -178,7 +179,8 @@ touch -d "yesterday" file.txt
 # 2. head -5 file.txt
 # 3. head -20 file.txt
 # 4. ls -t | head -5 # 최신 5개 파일 이름 추출 -> head -15 [5개 파일 이름] # 각 파일의 처음 15줄 출력
-# 5. find . -type f -size +1M # 1MB 이상인 파일 이름 추출-> head -50 [1MB 이상 파일 이름] # 각 파일의 처음 50줄 출력
+# 5. find . -type f -size +1M # 1MB 이상인 파일 이름 추출
+# 이후에 head -50 [1MB 이상 파일 이름] # 각 파일의 처음 50줄 출력
 
 #tail 명령어:
 1. 현재 디렉토리에 있는 파일 중에서 가장 마지막으로 등장하는 10줄을 출력하는 명령어를 작성하세요.
@@ -192,7 +194,8 @@ touch -d "yesterday" file.txt
 # 2. tail -5 file.txt
 # 3. tail -20 file.txt
 # 4. ls -t | head -5 # 최신 5개 파일 이름 추출 -> tail -15 [5개 파일 이름] # 각 파일의 마지막 15줄 출력
-# 5. find . -type f -size +1M # 1MB 이상인 파일 이름 추출-> tail -50 [1MB 이상 파일 이름] # 각 파일의 마지막 50줄 출력
+# 5. find . -type f -size +1M # 1MB 이상인 파일 이름 추출
+# 이후에 tail -50 [1MB 이상 파일 이름] # 각 파일의 마지막 50줄 출력
 ```
 
 ## 11) more 과 file 명령어
