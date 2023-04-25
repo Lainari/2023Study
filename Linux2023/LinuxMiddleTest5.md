@@ -436,3 +436,109 @@ done # 반복문 종료
 
 ```
 
+## while
+
+### 기본 구조
+
+```bash
+while [조건절]
+do
+# 조건절이 참일 동안 실행되는 명령어
+done
+```
+```bash
+while test 조건절
+do
+# 조건절이 참일 동안 실행되는 명령어
+done
+```
+```bash:while 예제문제
+1. 변수 count가 3일 때 해당 count 의 값을 표현하고 줄여가면서 1까지 출력하는 while 반복문을 작성하라(3가지)
+2. 사용자로부터 비밀번호를 두 번 입력 받아 같으면 종료, 단 일치하지 않으면 다시 둘 다 입력받는 쉘 스크립트 whileex2.sh 파일을 작성하라(read -s를 통해 비밀번호 입력모드)
+3. 사용자로부터 파일 이름을 입력받아 빈 파일을 만든다. 하나를 만든 다음 더 만들 것인지 물어보고 y 또는 Y를 입력할 경우 다시 입력을 받고 다른 글자를 입력할 경우 종료되는 쉘 스크립트 whileex3.sh 를 작성하라
+
+# 정답
+# 1. vi whileex1.sh
+  # count=3
+  # while test $count -gt 0 또는 while [ $count -gt 0 ] 또는 while (( $count > 0 ))
+  # do
+  # echo count
+  # ((count--))
+  # done
+# 2. vi whileex2.sh
+  # pwd1 = 123
+  # pwd2 = 456
+  # while test $pwd1 != $pwd2
+  # do
+  # echo "Enter Password"
+  # read -s pwd1
+  # echo "Enter Password Again"
+  # read -s pwd2
+  # done
+# 3. vi whileex3.sh
+  # more=y
+  # while [[ $more = "y" || $more = "Y" ]]
+  # do
+  # echo -n "Enter File name"
+  # read file
+  # touch $file
+  # echo -n "more create?( y / n)"
+  # read more
+  # done
+
+```
+
+# 함수
+
+## 기본구조
+
+```bash
+function 함수명(){
+    # 실행시킬 명령어
+    # $1, $2, $# 추가 가능
+}
+
+# 호출은 함수 이름으로
+함수명
+
+# 파라미터 사용가능
+함수명 arg1 arg2
+```
+```bash
+function 함수명(){
+    # 실행시킬 명령어
+    return 숫자값 # 함수 호출시 반환되는 숫자값
+}
+함수명
+변수명=$? # $? : 마지막 명령어의 실행 결과
+```
+```bash
+function 함수명(){
+    # 실행시킬 명령어
+    echo 문자열
+}
+
+res=$(함수명) # 함수 호출된 문자열이 res 변수에 저장
+```
+```bash:반환값 실습
+1. 호출하면 10의 숫자값을 반환하는 함수 test 를 작성하여 화면에 표출하는 쉘 스크립트 functionex1.sh를 작성하시오
+2. 호출하면 hello 문자열을 반환하는 함수 test2 를 작성하여 화면에 표출하는 쉘 스크립트 functionex2.sh를 작성하시오
+
+# 정답
+# 1. vi functionex1.sh
+#  #! /bin/bash
+#  function test(){
+#     return 10
+#  }
+#  test
+#  echo $?
+
+# 2. vi functionex2.sh
+#  #! /bin/bash
+#  function test2(){
+#     echo "hello"
+#  }
+#  res=$(test2)
+#  echo $res
+
+```
