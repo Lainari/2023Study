@@ -460,4 +460,238 @@ public class ArrayProc{
 * * *
 ## LAB : 배열에 저장된 값의 평균 구하기
 ```Markdown
+사용자로부터 값을 받아서 배열을 채운 후에 배열에 저장된 모든 값의 평균을 구하여 출력하는 프로그램 작성
+- ArrayProc 클래스
+  - getValue(array:int[]) : void
+  - getAverage(array:int[]) : double
+- 결과 : 성적을 입력하시오: ~~ 평균은 = 
+```
+```Java:ArrayProc.java
+import java.util.Scanner;
+
+public class ArrayProc{
+    public void getValue(int[] array){
+        Scanner scan = new Scanner(System.in);
+        for (int i = 0; i < array.length; i++){
+            System.out.print("성적을 입력하시오:");
+            array[i] = scan.nextInt();
+        }
+    }
+    public double getAverage(int[] array){
+        double total = 0;
+        for(int i = 0; i < array.length; i++){
+            total += array[i];
+        }
+        return total / array.length;
+    }
+
+    public static void main(String args[]){
+        final static int STUDENTS = 5;
+
+        int[] scores = new int[STUDENTS];
+        ArrayProc obj = new ArrayProc();
+        obj.getValues(scores);
+        System.out.println("평균은 = " + obj.getAverage(scores));
+    }
+}
+```
+
+- 메소드는 작업의 결과값을 반환할 수 있다
+- int, double 값도 반환할 수 있지만 객체도 반환할 수 있지만 이때는 참조값만 반환한다
+```Java:Box.java
+public class Box{
+    int width, length, height;
+    int volume;
+
+    Box(int w, int l, int h){
+        width = w;
+        length = l;
+        height = h;
+        volume = width * length * height;
+    }
+
+    Box whosLargest(Box box1, Box box2){
+        if(box1.volume > box2.volume){
+            return box1;
+        }else{
+            return box2;
+        }
+    }
+
+    public static void main(String args[]){
+        Box obj1 = new Box(10, 20, 50);
+        Box obj2 = new Box(10, 30, 30);
+
+        Box largest = obj1.whosLargest(obj1, obj2);
+        System.out.println("(" + largest.width + "," + largest.length + "," + largest.height + ")");
+    }
+}
+```
+
+* * *
+## LAB : 같은 크기의 Box 인지 확인하기
+- 2개의 박스가 같은 치수인지를 확인하는 메소드 isSameBox() 작성
+  - 같으면 true, 다르면 false 반환
+```Java:Box.java
+public class Box{
+    private int width, length, height;
+
+    Box(int w, int l, int h){
+        width = w;
+        length = l;
+        height = h;
+    }
+    
+    public boolean isSameBox(Box obj){
+        if((obj.width == width) && (obj.length == length) && (obj.height == height)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+```
+
+* * *
+## 정적 멤버(클래스 멤버)
+- 정적 멤버는 모든 객체를 통틀어서 하나만 생성되고 모든 객체가 공유하는 것
+```Markdown
+클래스이름.변수이름
+```
+- 따로 객체를 생성할 필요 없이 클래스명과 변수를 호출하면 되는 구조로 되어있다
+- 메소드 또한 클래스 이름에 멤버 연산자(.)를 통해 호출한다
+```Markdown
+클래스이름.메소드이름(인수1, 인수2, ...)
+```
+- 예시로는 Math 클래스에 들어있는 각종 수학 메소드들이다
+```Java
+double value = Math.sqrt(9.0);
+```
+- 제곱근을 구하는 sqrt() 메소드는 정적 메소드로 선언되고 클래스 이름인 Math를 통하여 호출한다
+```Java:Car.java
+public class Car{
+    private String model;
+    private String color;
+    private int speed;
+
+    // 자동차의 시리얼 번호
+    private int id;
+    //실체화된 Car 객체의 개수를 위한 정적 변수
+    private static int numbers = 0;
+
+    public Car(String m, String c, int s){
+        model = m;
+        color = c;
+        speed = s;
+
+        // 자동차의 개수를 증가시키고 id에 대입한다
+        id = ++numbers;
+    }
+    // 정적 메소드
+    public static int getNumberOfCars(){
+        return numbers;
+    }
+
+    public static void main(String args[]){
+        Car c1 = new Car("S600", "white", 80);
+        Car c2 = new Car("E500", "blue", 20);
+        int n = Car.getNumberOfCars();
+        System.out.println("지금까지 생성된 자동차 수 = " + n);
+    }
+}
+```
+
+### 정적 멤버 사용 시 주의할 점
+- 객체 안에서만 존재하는 인스턴스 변수들은 사용할 수 없다
+- 정적 메소드에서 인스턴스 메소드를 호출하면 오류가 된다
+- 정적 메소드에서 정적 메소드를 호출하는 것은 가능하다
+- 정적 메소드는 this 키워드를 사용할 수 없다(참조할 인스턴스가 없음)
+
+### 상수
+- 상수를 정의할 때 static 과 final 수식어를 동시에 사용하는 경우가 많다
+```Java
+static final int MAX_SPEED = 350;
+```
+
+### 정적 초기화 블록
+- 정적 초기화 블록은 중괄호 {}로 감싸여진 코드 블록으로 초기화 하는데, 앞에 static이 붙여진다
+```Java
+static{
+    // 정적 변수들을 초기화
+}
+```
+
+* * *
+## LAB : 직원 클래스 작성하기
+- 직원을 나타는 클래스에서 직원들의 수를 카운트한다
+  - 객체가 하나씩 생성될 때 마다 생성자에서 정적 변수 count를 증가
+  - 객체가 소멸될 때 호출되는 finalize() 메소드에서 count 감소시키기
+```Java:Employee.java
+public class Employee{
+    private String name;
+    private double salary;
+
+    private static int count;
+
+    Employee(String n, double s){
+        name = n;
+        salary = s;
+        count++;
+    }
+
+    protected void finalize(){
+        count--;
+    }
+
+    public static int getCount(){
+        return count;
+    }
+
+    public static void main(String args[]){
+        Employee e1, e2, e3;
+        e1 = new Employee("김철수", 35000);
+        e2 = new Employee("최수철", 50000);
+        e3 = new Employee("김철호", 20000);
+
+        int n = Employee.getCount;
+        System.out.println("현재의 직원수 = " + n);
+    }
+}
+```
+
+* * *
+## 내장 클래스
+- 외부 클래스 : 내부에 클래스를 가지고 있는 클래스
+- 내장 클래스 : 클래스 내부에 포함되는 클래스
+```Java
+class OuterClass{
+    ...
+    class NestedClass{
+        ...
+    }
+    ...
+}
+```
+
+### 내부 클래스
+- 클래스 안에 선언된 클래스
+```Markdown
+접근 지정자 : public, private, protected 또는 package(default) 일수도 있다
+```
+- 내부 클래스는 외부 클래스의 인스턴스 변수와 메소드를 전부 사용할 수 있다
+- private로 선언되어 있어도 접근이 가능!
+```Java
+public class OuterClass{
+    private int value = 10;
+
+    class InnerClass{
+        public void myMethod(){
+            System.out.println("외부 클래스의 private 변수 값: " + value);
+        }
+    }
+
+    OuterClass(){
+        InnerClass obj = new InnerClass();
+        obj.myMethod();
+    }
+}
 ```
