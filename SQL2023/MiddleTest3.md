@@ -540,3 +540,258 @@ DECODE(열 이름, 조건 값, 치환 값, 기본값)
 * 치환값엔 조건 값에 해당할 경우 출력 값을 설정하고
   기본 값에 조건 값에 해당하지 않을 경우 출력값을 설정한다
 ```
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 first_name, last_name, department_id, salary를 출력하되
+  department_id가 60인 경우에는 급여를 10% 인상한 값을 계산하고 출력하고
+  나머지 경우에는 원래의 값을 출력하라
+  그리고 department_id가 60인 경우에는 10% 인상을 출력하고
+  나머지 경우에는 미인상을 출력해라
+ ```
+ ```SQL
+   SELECT
+    first_name,
+    last_name,
+    department_id,
+    salary,
+    [                             ] 조정된 급여 결과
+    [                             ] 인상 여부
+   FROM employees;
+ ```
+
+### 3) CASE 표현식 : 복잡한 조건 논리 처리하기
+```
+CASE
+    WHEN 조건 1 THEN 출력 값 1
+    WHEN 조건 2 THEN 출력 값 2
+    ...
+    ELSE 출력 값 3
+END
+```
+- 복잡한 조건식을 여러 개 적용해야 할 때는 DECODE 함수보단 CASE 표현식을 이용
+- CASE 함수는 조건의 범위가 다양한 경우에 쉽게 처리할 수 있다
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 job_id가 IT_PROG 라면
+  employee_id, first_name, last_name, salary를 출력하되
+  salary가 9000이상이라면 상위급여
+  6000 과 8999사이라면 중위급여
+  그 외는 하위 급여라고 출력하라
+ ```
+ ```SQL
+   SELECT employee_id, first_name, last_name, salary,
+    [    ]
+       [                       ],  상위급여
+       [                       ],  중위급여
+       [                       ] 그외 하위급여
+    [    ] AS 급여등급
+   FROM employees
+   [             ] 조건;
+ ```
+
+### 4) RANK, DENSE_RANK, ROW_NUMBER : 데이터 값에 순위 매기기
+```
+RANK () OVER([PARTITION BY 열 이름] ORDER BY 열 이름)
+
+* PARTITION BY 열 이름은 선택기능이며 그룹으로 묶어서 순위를 매겨야 할 때 사용한다
+* ORDER BY 열 이름에는 순위를 매길 열을 선택한다
+```
+- RANK : 공통 순위를 출력하되 해당 순위만큼 건너뛰어 다음 순위 출력(1, 2, 2, 4)
+- DENSE_RANK : 공통 순위를 출력하되 건너뛰지 않고 다음 순위 출력(1, 2, 2, 3)
+- ROW_NUMBER : 공통 순위를 없이 출력(1, 2, 3, 4)
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  RANK, DENSE_RANK, ROW_NUMBER 함수를 각각 이용해
+  employees 테이블의 salary 값이 높은 순서대로 순위를 매겨 출력하라
+ ```
+ ```SQL
+   SELECT employee_id, salary,
+   [                 ], RANK 급여
+   [                       ], DENSE_RANK 급여
+   [                       ] ROW_NUBMER 급여
+   FROM employees;
+ ```
+ ```
+  추가로 위에서 employees 테이블 직원이 속한 department_id 안에서
+  salary 값이 높은 순서대로 순위를 매겨 출력하라
+
+ ```
+ ```SQL
+   SELECT
+     A.employee_id,
+     A.department_id,
+     B.department_name,
+     salary,
+     [                                        ], RANK 급여
+     [                                                 ], DENSE_RANK 급여
+     [                                                 ] ROW_NUMBER 급여
+    FROM employees A, departments B
+    [                       ] 조건
+    [                       ] 오름차순, 내림차순;
+ ```
+
+* * *
+# 3. 그룹 함수 : 그룹으로 요약하기
+```
+SELECT 그룹 함수(열 이름)
+FROM 테이블 이름
+[WHERE 조건식]
+[ORDER BY 열 이름];
+```
+- 그룹함수는 여러 행에 대해 함수가 적용되어 하나의 결과를 나타내는 함수
+- 집계 함수라고 부르기도 함
+- 그룹 함수 연산이 필요하면 GROUP BY 절을 이용하고 조건은 HAVING절을 이용한다
+
+## 그룹 함수의 종류와 사용법
+
+### 1) COUNT 함수
+```
+COUNT(열 이름)
+
+* 열 이름 대신 *를 사용하면 열의 모든 행 개수를 셈
+```
+- 지정한 열의 행 개수를 세는 함수
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 salary의 행 수가 몇 개인지 세어서 출력하시오
+ ```
+ ```SQL
+   SELECT [           ] salary 행수
+   FROM employees;
+ ```
+ - 그룹 함수의 대부분은 null을 제외하고 연산한다
+ - COUNT 함수는 COUNT(*)의 경우 null 값도 행으로 셀 수 있다는 점을 유의할 것
+
+### 2) SUM, AVG 함수
+```
+SUM(열 이름) / AVG(열 이름)
+```
+- SUM은 열의 합계를 구하는 함수
+- AVG는 열의 평균을 구하는 함수
+  - 단, 두 함수는 그룹 함수의 결과값끼리 계산할 수 있다
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 salary의 합계와 평균을 구하시오
+  또한, AVG 함수를 사용하지 말고도 평균을 구해보시오
+ ```
+ ```SQL
+   SELECT
+     [               ], 합계
+     [               ], AVG 사용
+     [               ] AVG 미사용
+    FROM employees;
+ ```
+- AVG 함수는 null 값을 제외하고 연산함
+- null 값을 포함해서 평균을 계산할 때는 NVL 함수를 사용하여 AVG(NVL(salary,0))로 치환해서 계산할 것
+
+### 3) MAX, MIN 함수
+```
+MAX(열 이름) / MIN(열 이름)
+```
+- MAX는 최댓값을 출력하는 함수
+- MIN은 최솟값을 출력하는 함수
+- 모든 데이터 타입에 대해 MAX와 MIN 함수를 사용할 수 있다
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 salary의 최댓값과 최솟값, first_name의 최댓값과 최솟값을 출력하라
+ ```
+ ```SQL
+   SELECT
+    [               ], salary 최댓값 최솟값
+    [               ] first_name 최댓값 최솟ㄱ밧
+   FROM employees;
+ ```
+
+### 4) GROUP BY : 그룹으로 묶기
+```
+SELECT 기준 열, 그룹 함수(열 이름)
+FROM 테이블 이름
+[WHERE 조건식]
+GROUP BY 열 이름
+[ORDER BY 열 이름]
+
+ * 열 이름과 그룹 함수가 같이 지정되었으므로 GROUP BY 절이 필수
+```
+- 기준 열을 지정하여 그룹화하는 명령어
+- SELECT 절에 열 이름과 그룹 함수를 함께 기술했다면 GROUP BY 절을 반드시 사용
+- 순서
+1. 테이블에 접근
+2. WHERE 조건식에 맞는 데이터 값만 골라냄
+3. 기술된 기준 열을 기준으로 같은 데이터 값끼리 그룹화
+4. 결과 출력
+5. 오름차순(기본, ASC) 혹은 내림차순(DESC)으로 정렬
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 employee_id가 10 이상인 직원에 대해
+  job_id 별로 그룹화하여 job_id 별 총 급여와 job_id별 평균 급여를 구하여
+  job_id 별 총 급여를 기준으로 내림차순 정렬하여 출력하라
+ ```
+ ```SQL
+   SELECT
+     job_id AS 직무,
+     [               ], job_id 별 총급여
+     [               ] job_id 별 평균 급여
+    FROM employees
+    [               ] 조건
+    [            ] 그룹으로 묶기
+    [            ]; 내림차순
+ ```
+ ```
+  그룹에 대한 그룹이 필요한 경우도 있음
+  이런 경우에는 GROUP BY 절 뒤에 순서대로 기술하기만 하면 그 순서대로 그룹화하여 정렬
+ ```
+  ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 employee_id가 10 이상인 직원에 대해
+  job_id 별로 그룹화하고 manager_id별로 다시 한 번 그룹화 한다
+  이후 job_id 별 총 급여와 job_id별 평균 급여를 구하여
+  job_id 별 총 급여를 기준으로 내림차순 정렬하여 출력하라
+ ```
+ ```SQL
+   SELECT
+     job_id AS 대그룹,
+     manager_id AS 중그룹
+     [               ], job_id 별 총급여
+     [               ] job_id 별 평균 급여
+    FROM employees
+    [               ] 조건
+    [                   ] 대, 중그룹으로 묶기
+    [            ]; 내림차순
+ ```
+
+### 5) HAVING : 연산된 그룹 함수 결과에 조건 적용하기
+```
+SELECT 열 이름, 그룹 함수(열 이름)
+FROM 테이블 이름
+[WHERE 조건식]
+GROUP BY 열 이름
+[HAVING 조건식]
+[ORDER BY 열 이름];
+```
+- HAVING 절은 그룹화된 값에 조건식을 적용할 때 사용
+- 일반적으로 GROUP BY 절 다음에 기술하는 것이 논리적이고 가독성도 좋다
+- 순서
+1. 테이블에 접근
+2. WHERE 조건식에 맞는 데이터 값만 골라냄
+3. 기술된 기준 열을 기준으로 같은 데이터 값끼리 그룹화
+4. 그룹화된 값에 대해 조건식을 적용
+5. 결과 출력
+6. 오름차순(기본, ASC) 혹은 내림차순(DESC)으로 정렬
+ ### 다음의 문제에서 빈칸에 들어갈 명령어를 기술하시오
+ ```
+  employees 테이블에서 employee_id가 10 이상인 직원에 대해
+  job_id 별로 그룹화하여 job_id 별 총 급여와 job_id별 평균 급여를 구하되
+  job_id별 총 급여가 30000보다 큰 값만 출력하게 하라
+  또한 출력 결과는 job_id 별 총 급여를 기준으로 내림차순 정렬하라
+ ```
+ ```SQL
+   SELECT
+     job_id AS 직무,
+     [                ], 직무별 총 급여
+     [                ] 직무별 평균급여
+    FROM employees
+    [             ] 조건
+    [             ] 그룹으로 묶기
+    [             ] 그룹 함수 조건
+    [                ]; 내림차순
+ ```
