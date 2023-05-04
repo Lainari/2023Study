@@ -1,4 +1,4 @@
-public class AutoCar implements OperateCar{
+public class AutoCar implements OperateCar {
     public void start(){
         System.out.println("자동차가 출발합니다.");
     }
