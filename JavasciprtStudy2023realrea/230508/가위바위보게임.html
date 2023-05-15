@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위바위보</title>
+    <style>
+        #computer {
+          width: 142px;
+          height: 200px;
+        }
+      </style>
+</head>
+<body>
+    <div id="computer"></div>
+
+    <div>
+        <button id="scissors" class="btn">가위</button>
+        <button id="rock" class="btn">바위</button>
+        <button id="paper" class="btn">보</button>
+    </div>
+
+    <div id="score">
+    </div>
+
+    <script>
+        const $computer = document.querySelector('#computer');
+        const $score = document.querySelector('#score');
+        const $rock = document.querySelector('#rock');
+        const $scissors = document.querySelector('#scissors');
+        const $paper = document.querySelector('#paper');
+        const IMG_URL = './rsp.png';
+
+        // const scissorsX = '0';
+        // const rockX = '-220px';
+        // const paperX = '-440px';
+        // ===> 객체로 표현
+        const rspX = {
+            scissors:'0',   // key:value
+            rock:'-220px',
+            paper:'-440px',
+        };
+
+        // const changeComputerHand = () => {
+        //     if(computerChoice == 'rock'){
+        //         computerChoice = 'scissors';
+        //         // $computer.style.background = `url(${IMG_URL}) ${scissors} 0`
+        //     }else if(computerChoice == 'scissors'){
+        //         computerChoice = 'paper';
+        //     }else if(computerChoice == 'paper'){
+        //         computerChoice = 'rock';
+        //     }
+        //     $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+        //     // $computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+        //     $computer.style.backgroundSize = 'auto 200px'; // width, height
+        //     setTimeout(changeComputerHand, 500); // 0.05초에 changeComputerHand() 호출
+        //     // 재귀호출
+        // // };
+
+        // setTimeout(changeComputerHand, 500);
+
+        let computerChoice = 'scissors'; // 가위
+        const changeComputerHand = () => {
+            if(computerChoice == 'rock'){
+                computerChoice = 'scissors';
+                // $computer.style.background = `url(${IMG_URL}) ${scissors} 0`
+            }else if(computerChoice == 'scissors'){
+                computerChoice = 'paper';
+            }else if(computerChoice == 'paper'){
+                computerChoice = 'rock';
+            }
+            $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+            // $computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+            $computer.style.backgroundSize = 'auto 200px'; // width, height
+        };
+
+        let intervalId = setInterval(changeComputerHand, 500);
+
+        const clickBtn = (e)=> {
+            clearInterval(intervalId);
+
+            setTimeout(()=>{intervalId = setInterval(changeComputerHand,500);},2000);
+
+        };
+        $scissors.addEventListener('click', clickBtn);
+        $rock.addEventListener('click', clickBtn);
+        $paper.addEventListener('click', clickBtn);
+
+
+
+    </script>
+
+</body>
+</html>

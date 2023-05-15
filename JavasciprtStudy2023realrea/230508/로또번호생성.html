@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>로또추첨기</title>
+  <style>
+    .ball {
+      display: inline-block;
+      border: 1px solid black;
+      border-radius: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 20px;
+      text-align: center;
+      margin-right: 20px;
+    }
+    .ball1 {
+      display: inline-block;
+      border: 1px solid rgb(253, 1, 1);
+      border-radius: 20px;
+      width: 40px;
+      height: 40px;
+      line-height: 40px;
+      font-size: 40px;
+      text-align: center;
+      margin-right: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div id="result">추첨결과는? </div>
+  <div id="bonus">보너스: </div>
+
+  <script>
+    // getRNum(n,m): n이상 m이하
+    const getRNum = (n,m)=> Math.floor(
+                           Math.random() *
+                           (m-n+1)
+                         )+n;
+    const candidate = Array(45).fill().map((v,i)=> i+1);
+    //console.log(candidate);\
+    const shuffle =[];
+    while(candidate.length>0){  // 피셔-예이츠 셔플 알고리즘
+      const random = getRNum(0,candidate.length-1);
+/*       const spliceArrValue = candidate.splice(random,1);
+      console.log(spliceArrValue);
+      const value = spliceArrValue[0];
+      shuffle.push(value); */
+      shuffle.push((candidate.splice(random,1))[0]);
+    }
+   // console.log(shuffle);
+
+   //const winBalls = shuffle.slice(0,6);//.sort((a,b)=> a-b);
+   const winBalls = shuffle.slice(0,6).sort((a,b)=> a-b);
+  //  console.log(shuffle);
+  //  console.log(winBalls);
+  const bonus = shuffle[6];
+
+  console.log('로또번호:',winBalls, '보너스번호:', bonus);
+
+  const $result = document.querySelector('#result');
+
+  // setTimeout(
+  //   //콜백함수
+  //   ()=>{
+  //     const $ball = document.createElement('div');  // <div></div>
+  //     $ball.className ='ball';  // <div class='ball'></div>
+  //     /* $ball.addEventListener('click',(e)=>{
+  //       e.target.className = 'ball1';
+  //     }) */
+  //     $ball.textContent = winBalls[0];  // <div class='ball'>winBalls[0]의값</div>
+  //     $result.appendChild($ball);
+  //   }
+  //   ,
+  //   // 밀리초
+  //   1000 // 1초지나면 함수 실행시키기 함
+  // );
+for(let i=0;i<winBalls.length;i++){ // let 블록내에서만 사용 가능
+  // for( i=0;i<winBalls.length;i++){ // var는 전체 함수내에서 통용
+    setTimeout(
+      //콜백함수
+      ()=>{
+        const $ball = document.createElement('div');  // <div></div>
+        $ball.className ='ball';  // <div class='ball'></div>
+        $ball.style.backgroundColor = '#FF00FF';
+        $ball.textContent = winBalls[i];  // <div class='ball'>winBalls[0]의값</div>
+        $result.appendChild($ball);
+      }
+    ,
+      // 밀리초
+      1000 * (i+1) // 1초지나면 함수 실행시키기 함
+    );
+  }
+  
+  const $bonus = document.querySelector('#bonus');
+  setTimeout(()=>{
+      const $ball = document.createElement('div');  // <div></div>
+      $ball.className ='ball';  // <div class='ball'></div>
+      $ball.textContent = bonus;  // <div class='ball'>winBalls[0]의값</div>
+      $bonus.appendChild($ball);
+  },7000)
+
+
+  </script>
+  
+</body>
+</html>

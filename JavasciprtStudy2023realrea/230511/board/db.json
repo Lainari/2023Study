@@ -1,0 +1,31 @@
+{
+    "posts":[
+        {
+            "id":1,
+            "title":"json-server",
+            "writer":"typicode",
+            "content":"test content",
+            "createdAt":"2021.1.15",
+            "hit":1
+        },
+        {
+            "id":2,
+            "title":"json-server2",
+            "writer":"typicode",
+            "content":"test content2",
+            "createdAt":"2021.1.16",
+            "hit":2
+        }
+    ],
+    "comments":[
+        {
+            "id":1,
+            "body":"some comment",
+            "writer":"test",
+            "postId":1
+        }
+    ],
+    "profile":{
+        "name":"typicode"
+    }
+}
