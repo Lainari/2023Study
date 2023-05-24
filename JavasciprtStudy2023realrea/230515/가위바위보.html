@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>가위바위보</title>
+  <style>
+    #computer {
+      width: 142px;
+      height: 200px;
+    }    
+  </style>
+</head>
+<body>
+  <div id="computer"></div>
+
+  <div>
+    <button id="scissors" class="btn">가위</button>
+    <button id="rock" class="btn">바위</button>
+    <button id="paper" class="btn">보</button>
+  </div>
+
+  <div id="score">
+  </div>
+
+  <script>
+    const $computer = document.querySelector('#computer');
+    const $score = document.querySelector('#score');
+    const $rock = document.querySelector('#rock');
+    const $scissors = document.querySelector('#scissors');
+    const $paper = document.querySelector('#paper');
+    const IMG_URL = './rsp.png';
+
+/*     const scissorsX = '0';
+    const rockX = '-220px';
+    const paperX = '-440px'; */
+    // ===> 객체로 표현
+    const rspX = {
+      scissors:'0',   // key:value
+      rock:'-220px',
+      paper:'-440px',
+    };    
+
+    let computerChoice = 'scissors'; // 가위
+    /* const changeComputerHand = () =>{
+      if(computerChoice === 'rock'){
+        computerChoice = 'scissors';
+        //$computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+      }else if(computerChoice === 'scissors'){
+        computerChoice = 'paper';
+      }else if(computerChoice === 'paper'){
+        computerChoice = 'rock';
+      }
+      $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+      //$computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+      $computer.style.backgroundSize = 'auto 200px'; // width, height
+      setTimeout(changeComputerHand,500); // 0.05초에 changeComputerHand()호출
+      // 재귀호출
+    };
+    
+    setTimeout(changeComputerHand,500); */
+
+    const changeComputerHand = () =>{
+      if(computerChoice === 'rock'){
+        computerChoice = 'scissors';
+        //$computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+      }else if(computerChoice === 'scissors'){
+        computerChoice = 'paper';
+      }else if(computerChoice === 'paper'){
+        computerChoice = 'rock';
+      }
+      $computer.style.background = `url(${IMG_URL}) ${rspX[computerChoice]} 0`;
+      //$computer.style.background = `url(${IMG_URL}) ${scissorsX} 0`;
+      $computer.style.backgroundSize = 'auto 200px'; // width, height
+    };
+    
+    let intervalId = setInterval(changeComputerHand,50);
+
+    /* // 첫번째 해결방법
+     const clickBtn = (e)=>{
+      clearInterval(intervalId);
+      $scissors.removeEventListener('click',clickBtn);  // 클릭 이벤트 핸들러 취소
+      $rock.removeEventListener('click',clickBtn);
+      $paper.removeEventListener('click',clickBtn);
+
+
+      setTimeout(()=>{
+        $scissors.addEventListener('click',clickBtn);  // 클릭 이벤트 핸들러 등록
+        $rock.addEventListener('click',clickBtn);
+        $paper.addEventListener('click',clickBtn);
+        intervalId = setInterval(changeComputerHand,500);
+      },2000);
+
+    }; */
+
+    let flagClickable = true;
+
+    const scoreTable = {
+      rock:0, scissors:1, paper:-1
+    };
+
+    let score = 0;
+
+    const clickBtn = (e)=>{
+      if(flagClickable){ // if(flagClickable === true){
+        flagClickable = false;
+        clearInterval(intervalId);  
+
+        const myChoice = e.target.textContent === '가위' 
+              ? 'scissors'
+              : e.target.textContent === '바위'
+              ? 'rock'
+              : 'paper';   // 중첩 조건 연산자
+
+        // p.297 내용 구현: 승패여부 표시 가능
+
+        // 분석: 승패 점수화
+        // 가위: 1, 바위: 0, 보: -1
+        /*  내선택 - 컴퓨터선택: -2~2
+          나\컴퓨터    가위 바위 보
+        가위            0   1   2
+        바위           -1   0   1
+        보             -2  -1   0
+
+        이김: 2, -1
+        비김: 0
+        패배: 1, -2
+        */
+
+        const myScore = scoreTable[myChoice]; // scoreTable.myChoice -- 에러 발생
+        const computerScore = scoreTable[computerChoice];
+        const diff = myScore - computerScore;
+
+        /*if(diff === 2 || diff === -1) {console.log('이김');}  // if ([2, -1].includes(diff))
+        else if(diff === -2 || diff === 1) { console.log('패배');}
+        else {console.log('비김');} */
+
+
+        let msg = '';
+
+        if ([2,-1].includes(diff)){
+          // 이김
+          score++;
+          msg='축하! 이겼음!';
+        }else if([-2, 1].includes(diff)){
+          // 패배
+          score--;
+          msg='잔넨!, 모우이치도 감바로우!';
+        }else{
+          msg='무승부!';
+        }
+
+        $score.textContent = `${msg} 총: ${score}점`;
+
+        setTimeout(()=>{
+          flagClickable = true;
+          intervalId = setInterval(changeComputerHand,50);
+        },1000);
+      }
+    };
+
+    $scissors.addEventListener('click',clickBtn); // 클릭 이벤트 핸들러 등록
+    $rock.addEventListener('click',clickBtn);
+    $paper.addEventListener('click',clickBtn);
+
+
+    
+
+
+  </script>
+  
+</body>
+</html>
