@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입</title>
+</head>
+<body>
+  <h1>로그인</h1>
+  <form id="login-form" action="../login" method="POST">
+    <div>
+      <label for="username">아이디:</label>
+      <input type="text" id="username" name="username" required>
+    </div>
+    <div>
+      <label for="password">비밀번호:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <button type="submit">로그인</button>
+  </form>
+
+<br>
+<br>
+
+
+  <h1>회원가입</h1>
+  <form id="signup-form" action="../signup" method="POST">
+    <div>
+      <label for="username">아이디:</label>
+      <input type="text" id="signupUsername" name="signupUsername" required>
+      <button type="button" id="check-username">중복 체크</button>
+      <span id="username-error"></span>
+    </div>
+    <div>
+      <label for="password">비밀번호:</label>
+      <input type="password" id="password" name="password" required>
+    </div>
+    <div>
+      <label for="confirm-password">비밀번호 확인:</label>
+      <input type="password" id="confirm-password" name="confirm-password" required>
+      <span id="confirm-password-error"></span>
+    </div>
+    <div>
+      <label for="nickname">닉네임:</label>
+      <input type="text" id="nickname" name="nickname" required>
+      <span id="nickname-error"></span>
+    </div>
+    <input type="hidden" id="username-exists" name="username-exists" value="">
+    <button type="submit">가입하기</button>
+  </form>
+  <script>
+    const usernameExistsInput = document.getElementById('username-exists');
+    const form = document.getElementById('signup-form');
+
+    const checkUsernameButton = document.getElementById('check-username');
+    checkUsernameButton.addEventListener('click', () => {
+      const username = document.getElementById('signupUsername').value;
+      fetch(`/signup/check-username?signupUsername=${username}`)
+        .then(response => response.json())
+        .then(data => {
+          const exists = data.exists;
+          if (exists) {
+            alert('이미 사용중인 아이디입니다.');
+            usernameExistsInput.value = 'false';
+          } else {
+            alert('사용 가능한 아이디입니다.');
+            usernameExistsInput.value = 'true';
+          }
+        })
+        .catch(error => {
+          console.error('오류 발생:', error);
+          alert('서버 요청 중에 오류가 발생했습니다.');
+        });
+    });
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault(); // 폼 제출 기본 동작 중지
+
+      const usernameExists = document.getElementById('username-exists').value;
+      // 닉네임 중복된 값이 있다면 alert 발생 후 다시 재입력하도록 유도할 것
+
+      if (usernameExists === 'true') {
+        form.submit(); // 회원가입 데이터 전송
+      } else {
+        alert('아이디 중복 체크를 먼저 진행해주세요.');
+      }
+    });
+
+  </script>
+</body>
+</html>

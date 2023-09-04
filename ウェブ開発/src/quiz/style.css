@@ -12,7 +12,7 @@ h2{
 }
 
 ul li, ol li{
-    padding: 1em 0;
+    padding: 1em;
     list-style-position: inside;
 }
 
@@ -20,12 +20,18 @@ ol.answers{
     list-style: upper-alpha;
 }
 
-ol.answers li:hover{
+ol.answers li:hover {
     border: 0.1em solid #1e366a;
     background-color: #e5ecfc;
+    padding: 0.9em;
+    cursor: pointer;
 }
 
-#correct-answer{
+div#section-correct-answer {
+    display: none;
+}
+
+span#correct-answer{
     font-weight: bold;
     color: #f05959;
 
