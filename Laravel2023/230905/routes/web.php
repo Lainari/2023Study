@@ -30,4 +30,17 @@ Route::post('/register',function(Request $req){
 
     return view('register', ['name'=>$name, 'email'=>$email,'birthDate'=>$birthDate, 'organization'=>$organization]);
 });
+
+Route::get('/update', function (){
+   return view('update_form');
+});
+
+Route::put('/update', function(Request $req){
+    $name = $req->input("name");
+    $email = $req->input("email");
+    $birthDate = $req->input("birthDate");
+    $organization = $req->input("organization");
+
+    return view('update', ['name'=>$name, 'email'=>$email,'birthDate'=>$birthDate, 'organization'=>$organization]);
+});
 // 클로저
