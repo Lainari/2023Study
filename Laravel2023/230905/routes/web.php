@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,10 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/test', function () {
     return view('welcome');
 });
 
-Route::get('/test', function () {
-    return "후쿠오카 텐진석시 화이팅!";
-}); // 클로저
+Route::get('/register', function () {
+    return view('register_form');
+});
+
+Route::post('/register',function(Request $req){
+    $name = $req->input("name");
+    $email = $req->input("email");
+    $birthDate = $req->input("birthDate");
+    $organization = $req->input("organization");
+
+    return view('register', ['name'=>$name, 'email'=>$email,'birthDate'=>$birthDate, 'organization'=>$organization]);
+});
+// 클로저
