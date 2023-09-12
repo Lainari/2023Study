@@ -43,4 +43,22 @@ Route::put('/update', function(Request $req){
 
     return view('update', ['name'=>$name, 'email'=>$email,'birthDate'=>$birthDate, 'organization'=>$organization]);
 });
+
+Route::get('/remove', function(){
+    return view('remove_form');
+});
+
+Route::delete('/remove', function (Request $req) {
+    $deleted_name = $req->input("deleted_name");
+
+    return view('remove', ['deleted_name'=>$deleted_name]);
+});
+
+Route::get('user/{id?}', function (string $id = '100') {
+    return 'User '.$id;
+});
+
+Route::get('/posts/{post}/comments/{comment}', function(string $postId, string $commentId){
+    return '게시글 '.$postId.'번 글의 댓글'.$commentId.'번을 삭제했습니다.';
+});
 // 클로저
