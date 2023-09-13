@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,14 +13,8 @@ use Illuminate\Http\Request;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function() {
-    return view('welcome');
+Route::get('/',function(){
+    return View('welcome', ['users'=>[]]);
 });
 
-Route::get('/test', [UserController::class, 'test']);
-Route::get('/register', [UserController::class, 'create']);
-Route::get('/update', [UserController::class, 'edit']);
-Route::get('/players', [UserController::class, 'index']);
-Route::post('/register',[UserController::class, 'store']);
-Route::put('/update',[UserController::class, 'update']);
-Route::delete('/remove', [UserController::class, 'destroy']);
+Route::resource('/users', UserController::class);

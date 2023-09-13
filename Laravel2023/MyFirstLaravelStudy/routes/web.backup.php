@@ -64,4 +64,15 @@ Route::get('/posts/{post}/comments/{comment}', function(string $postId, string $
 });
 
 Route::get('/test', [UserController::class, 'test']);
+
+
+Route::get('/test', [UserController::class, 'test']);
+Route::get('/register', [UserController::class, 'create']);
+Route::get('/update', [UserController::class, 'edit']);
+Route::get('/players', [UserController::class, 'index']);
+Route::post('/register',[UserController::class, 'store']);
+Route::put('/update',[UserController::class, 'update']);
+Route::delete('/remove', [UserController::class, 'destroy']);
+
+Route::resource('photos',PhotoController::class);
 // 클로저
