@@ -10,8 +10,8 @@
     <form action="/update" method="post">
         @csrf
         @method("put")
-        이름 : <input type="text" value="석진석" name="name" readonly><br>
-        생년월일(YYYY/MM/DD) : <input type="text" value="1999/10/21" name="birthDate" readonly><br>
+        이름 : <input type="text" name="name" value="{{$name}}" readonly><br>
+        생년월일(YYYY/MM/DD) : <input type="text" name="birthDate" value="{{$birthDate}}" readonly><br>
         email : <input type="email" name="email"><br>
         소속 : <input type="text" name="organization"><br>
         <button type="submit">수정</button>
