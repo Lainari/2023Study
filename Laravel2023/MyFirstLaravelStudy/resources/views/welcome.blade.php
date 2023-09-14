@@ -8,18 +8,22 @@
 </head>
 <body>
     <center><h1>어서오세요</h1></center>
+    <hr>
     <div>
         <a href="/users/create">회원가입</a>
     </div>
     <div>
         <a href="/users">회원리스트</a>
+        <hr>
         @foreach ($users as $user)
-            <div>
-                이름 : {{$user["name"]}} &nbsp;&nbsp;
+            <h4>
+                이름 : {{$user["name"]}}
+            </h4>
+            <h4>
                 이메일 : {{$user["email"]}}
-                <button onclick="location.href='/users/{{$user['name']}}'">더보기</button>
-                <br>
-            </div>
+                <button onclick="location.href='/users/{{$user['id']}}'">더보기</button>
+            </h4>
+            <hr>
         @endforeach
     </div>
 </body>
