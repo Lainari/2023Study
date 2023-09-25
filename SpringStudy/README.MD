@@ -1,1 +1,0 @@
-# THIS IS SPRING STUDY BOX...!
