@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('flights', function (Blueprint $table) {
-            // int 타입의 auto_increment primary key id 칼럼생성
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('airline');
-
-            // datatime 데이터 타입으로 created_at, updated_at 이라는 두 개의 칼럼을 만들어준다 nullable
+            $table->string('title');
+            $table->text('content');
+            // $table->foreign('user_id')->references('id')->on('users');
+            $table->foreignId('user_id')->constrained();
             $table->timestamps();
         });
     }
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('flights');
+        Schema::dropIfExists('posts');
     }
 };
