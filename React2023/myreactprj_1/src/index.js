@@ -1,56 +1,57 @@
-import props from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-// 옛날 방식
-// const name = 'SEOK';
-// const element = <h1>안녕하세요? {name}</h1>;
-
-// ReactDOM.render(
-//   element,
-//   document.querySelector('#root') // 표시될 위치
-// );
-
-// 최신방식
-// const name = 'SEOK';
-// const element = <h1>안녕하세요? {name}</h1>;
-// ReactDOM.createRoot(document.querySelector('#root')).render(
-  //   <>{element}</>
-// );
-// );
-
-
-
-
-const person = {
- name:'JINSEOK',
- address:'Daegu',
- age:23
-}
-
-const name = 'SEOK';
-function printPerson(person){
-  const {name, address,age} = person;
-  return (`${name} 입니다. ${address}에서 살고, 나이는 ${age}살 입니다.`)
-}
-const element = <h1>안녕하세요? {printPerson(person)}</h1>;
-
-
-const App = (props)=>{
+const SideMenu = (props) => {
+  console.log(props.showMenu);
   return(
     <>
-      name
-      <hr />
-      {name}
-      <hr />
-      {element}
+      <div
+        style={{
+          border:'1px solid rgba(244, 67, 54, 1.0)',
+          width:'200px',
+          height:'94vh', // viewport height, vw : viewport width,
+          padding:'10px',
+          textAlign:props.direction
+
+        }}>
+        {props.direction}
+        <ul style={{listStyle:'none', paddingLeft:'0px', lineHeight:'2.6rem'}}>
+          <li>Lorem.</li>
+          <li>Saepe.</li>
+          <li>Delectus?</li>
+          <li>Dolorum.</li>
+          <li>Perferendis.</li>
+          <li>Corporis.</li>
+          <li>Quas?</li>
+          <li>Culpa?</li>
+          <li>Tempore.</li>
+          <li>Iure!</li>
+          <li>Sapiente.</li>
+          <li>Velit!</li>
+          <li>Quaerat.</li>
+          <li>Eligendi!</li>
+          <li>Dolor.</li>
+        </ul>
+
+
+      </div>
     </>
   )
-};
-ReactDOM.createRoot(document.querySelector('#root')).render(
-  <>{element}</>
-  // <App />
-  // 3+4
-  // person.age + 10
+}
 
+const App = (props) =>{
+  // const showMenu = props.showMenu;
+  const {showMenu} = props;
+
+  return(
+    <>
+      {showMenu && <SideMenu direction = 'left'/>}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.querySelector('#root')).render(
+  <>
+    <App showMenu={true}/>
+  </>
 );
